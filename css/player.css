@@ -1,0 +1,167 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/player.css */
+#ql-root .ql-timer-language-info {
+    position: fixed;
+    text-align: center;
+    font-size: var(--font-size-xl);
+    font-weight: 500;
+    color: var(--ql-primary-text-color);
+    text-shadow: 0 1px 3px rgba(255,255, 255, 0.9);
+    padding: 0 10px;
+    pointer-events: none; 
+    z-index: 10001;
+    top:30%;
+    right: 0px;
+    width: 500px;
+}
+#ql-root .ql-audio-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+#ql-root .ql-audio-main-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    width: 100%;
+    box-sizing: border-box;
+}
+#ql-root .ql-audio-element {
+    display: none;
+}
+#ql-root .ql-audio-play {
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+#ql-root .ql-audio-play svg {
+    fill: var(--ql-primary-text-color);
+}
+#ql-root .ql-audio-play:hover svg {
+    fill: var(--ql-primary-color);
+}
+#ql-root .ql-audio-progress-wrapper {
+    flex-grow: 1;
+    height: 4px;
+    background-color: var(--ql-light-border-color);
+    cursor: pointer;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+}
+#ql-root .ql-audio-progress-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: var(--ql-primary-color);
+    width: 0%;
+    transition: width 0.1s;
+}
+#ql-root .ql-audio-time {
+    font-size: var(--font-size-sm);
+    color: var(--ql-primary-text-color);
+    min-width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+#ql-root .ql-audio-marquee-wrapper {
+    overflow: hidden;
+    position: relative;
+    margin-top: -15px;
+    margin-left: 30px;
+    margin-right: 50px;
+}
+#ql-root .ql-audio-transcript {
+    display: inline-block;
+    padding-left: 100%;
+    white-space: nowrap;
+    will-change: transform;
+    font-size: var(--font-size-xs);
+    color: var(--ql-primary-text-color);
+    opacity: 0.8;
+}
+#ql-root .quelora_base-timer {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    z-index: 10000;
+    pointer-events: none;
+}
+@media (max-width: 768px) {
+    #ql-root .quelora_base-timer {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+@media (min-width: 769px) {
+    #ql-root .quelora_base-timer {
+        top: 50%;
+        left: initial;
+        right: 200px;
+        transform: translateY(-50%);
+    }
+}
+#ql-root .quelora_base-timer__svg {
+    transform: scaleX(-1);
+}
+#ql-root .quelora_base-timer__circle {
+    fill: none;
+    stroke: none;
+}
+#ql-root .quelora_base-timer__path-elapsed {
+    stroke-width: 4px;
+    stroke: #e0e0e0;
+}
+#ql-root .quelora_base-timer__path-remaining {
+    stroke-width: 4px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+    stroke: currentColor;
+}
+#ql-root .quelora_base-timer__path-remaining.green {
+    color: #41b883;
+}
+#ql-root .quelora_base-timer__path-remaining.orange {
+    color: orange;
+}
+#ql-root .quelora_base-timer__path-remaining.red {
+    color: #e53935;
+}
+#ql-root .quelora_base-timer__label {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

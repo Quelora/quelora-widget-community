@@ -1,0 +1,175 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+:root {
+    --ql-follow-button-bg: rgba(255, 255, 255, 0.1);
+    --ql-follow-button-color: #1fa8f5;
+    --ql-follow-button-border: rgba(255, 255, 255, 0.2);
+    --ql-follow-button-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    --ql-follow-button-hover-bg: rgba(255, 255, 255, 0.15);
+    --ql-follow-button-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    --ql-follow-button-active-bg: rgba(255, 255, 255, 0.05);
+    --ql-follow-button-active-scale: 0.97;
+    --ql-follow-button-hover-scale: 1.03;
+    --ql-follow-button-radius: 18px;
+    --ql-follow-button-active-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --ql-follow-button-active-bg-profile: #1fa8f5;
+    --ql-follow-button-active-bg-list: #5EE6E6;
+    --ql-color: #1BCBFC;
+    --ql-primary-color: #1fa8f5;
+    --ql-primary-text-color: #fefefe;
+    --ql-secondary-color: #1e1e1e;
+    --ql-background-color: #121212;
+    --ql-bw-background-color: #000000;
+    --ql-light-border-color: #1a1a1a;
+    --ql-border-color: #2c2c2c;
+    --ql-dark-background-color: #2a2a2a;
+    --ql-light-background-color: #1a1a1a;
+    --ql-gray-color: #888888;
+    --ql-medium-gray-color: #b0b0b0;
+    --ql-light-gray-color: #cccccc;
+    --ql-error-color: #ff3b30;
+    --ql-success-color: #34c759;
+    --ql-warning-color: #ff4d4d;
+    --ql-hover-warning-color: #ff1a1a;
+    --ql-text-color: #f5f5f5;
+    --ql-placeholder-color: #757575;
+    --ql-icon-color: #e0e0e0;
+    --ql-active-icon-color: #ed4956;
+    --ql-interaction-count-color: #a6a6a6;
+    --ql-gold-color: #FFD700;
+    --ql-accent-color: #2c2c2c;
+    --ql-frosted-bg: rgba(18, 18, 18, 0.8);
+    --ql-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --ql-level-0-color: #1a1a1a;
+    --ql-level-1-color: #242424;
+    --ql-level-2-color: #2d2d2d;
+    --ql-level-3-color: #363636;
+    --ql-level-4-color: #3f3f3f;
+    --ql-level-5-color: #484848;
+    --ql-level-6-color: #515151;
+    --ql-level-7-color: #5a5a5a;
+    --ql-level-8-color: #636363;
+    --ql-level-9-color: #6c6c6c;
+    --ql-level-default-color: #000000;
+    --avatar-border-width: 3px;
+    --avatar-small-border-width: 1px;
+    --avatar-border-color: #2c2c2c;
+    --avatar-shadow-1: 0 3px 6px rgba(0, 0, 0, 0.3);
+    --avatar-shadow-2: 0 3px 6px rgba(0, 0, 0, 0.4);
+    --font-size-xxxs: 8px;
+    --font-size-xxs: 10px;
+    --font-size-xs: 12px;
+    --font-size-sm: 13px;
+    --font-size-md: 14px;
+    --font-size-lg: 15px;
+    --font-size-xl: 17px;
+    --font-size-xxl: 19px;
+    --font-size-xxxl: 23px;
+    --font-size-display: 25px;
+    --icon-size-sm: 14px;
+    --icon-size-md: 16px;
+    --icon-size-lg: 18px;
+    --icon-size-xl: 20px;
+    --icon-size-xxl: 22px;
+    --icon-size-xxxl: 24px;
+    --icon-size-display: 25px;
+    --icon-size-push: 36px;
+    --spacing-xxs: 2px;
+    --spacing-xs: 4px;
+    --spacing-sm: 5px;
+    --spacing-md: 6px;
+    --spacing-lg: 8px;
+    --spacing-xl: 10px;
+    --spacing-xxl: 12px;
+    --spacing-xxxl: 15px;
+    --spacing-display: 20px;
+    --ql-language-select-height: 48px;
+    --ql-suboption-indent: 20px;
+    --ql-option-description-color: var(--ql-light-gray-color);
+    --ql-language-select-icon-size: 24px;
+    --ql-theme-group-padding: 12px;
+    --ql-toast-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --ql-toast-border-radius: 12px;
+    --ql-toast-padding: var(--spacing-xl);
+    --ql-toast-gap: var(--spacing-lg);
+    --ql-toast-title-margin: var(--spacing-xs);
+    --ql-toast-close-size: 24px;
+    --ql-font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+#ql-theme-root[data-theme="light"] {
+    --ql-follow-button-bg: rgba(255, 255, 255, 0.9);
+    --ql-follow-button-color: #007AFF;
+    --ql-follow-button-border: rgba(0, 0, 0, 0.1);
+    --ql-follow-button-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    --ql-follow-button-hover-bg: rgba(245, 245, 245, 0.95);
+    --ql-follow-button-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    --ql-follow-button-active-bg: rgba(230, 230, 230, 0.85);
+    --ql-follow-button-active-bg-profile: #66BFFF;
+    --ql-follow-button-active-bg-list: #5EE6E6;
+    --ql-color: #1BCBFC;
+    --ql-primary-color: #1fa8f5;
+    --ql-primary-text-color: #333;
+    --ql-secondary-color: #F2F2F2;
+    --ql-background-color: #FFFAFA;
+    --ql-border-color: #dbdbdb;
+    --ql-dark-background-color: #e6e6e6;
+    --ql-bw-background-color: #FFFFFF;
+    --ql-light-background-color: #F2F2F2;
+    --ql-light-border-color: #dbdbdb;
+    --ql-gray-color: lightgray;
+    --ql-medium-gray-color: #666;
+    --ql-light-gray-color: #999;
+    --ql-error-color: red;
+    --ql-success-color: #3897f0;
+    --ql-warning-color: #ff4d4d;
+    --ql-hover-warning-color: #ff1a1a;
+    --ql-text-color: #333;
+    --ql-gold-color: #5f551a;
+    --ql-placeholder-color: #999;
+    --ql-icon-color: #333;
+    --ql-active-icon-color: #ed4956;
+    --ql-interaction-count-color: #8e8e8e;
+    --ql-level-0-color: #f8f8f8;
+    --ql-level-1-color: #e0e0e0;
+    --ql-level-2-color: #d0d0d0;
+    --ql-level-3-color: #c0c0c0;
+    --ql-level-4-color: #b0b0b0;
+    --ql-level-5-color: #a0a0a0;
+    --ql-level-6-color: #909090;
+    --ql-level-7-color: #808080;
+    --ql-level-8-color: #707070;
+    --ql-level-9-color: #606060;
+    --ql-level-default-color: #ffffff;
+    --avatar-small-border-width: 1px;
+    --avatar-border-width: 3px;
+    --avatar-border-color: #fff;
+    --avatar-shadow-1: 0 3px 6px rgba(0, 0, 0, 0.16);
+    --avatar-shadow-2: 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+#ql-root *,
+#ql-root *::before,
+#ql-root *::after {
+    box-sizing: inherit;
+}
+
+#ql-root {
+    box-sizing: border-box;
+    font-family: var(--ql-font-family-system);
+    font-size: var(--font-size-md);
+    line-height: 1.5;
+    color: var(--ql-text-color);
+    text-align: left;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

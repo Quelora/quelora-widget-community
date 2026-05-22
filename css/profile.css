@@ -1,0 +1,903 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: packages/quelora-dashboard-api/public/css/profile.css */
+/* ========================================================================
+   QL – PROFILE MODULE
+   Updated: Added Chat Button Styles
+   ======================================================================== */
+
+.ql-profile {
+    display: flex;
+    flex-direction: column;
+    background: var(--ql-secondary-color);
+    color: var(--ql-primary-text-color);
+    font-family: var(--ql-font-family-system);
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.ql-profile * {
+    box-sizing: border-box;
+}
+
+.ql-profile a {
+    color: var(--ql-text-color)
+}
+
+/* --- HEADER SECTION --- */
+
+.ql-profile__header {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 160px;
+    background: linear-gradient(135deg, #1A4B8C 0%, #3A7BDA 50%, #6BA3E3 100%);
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    z-index: 1;
+    overflow: visible; 
+    align-items: center;
+    transition: filter 0.3s ease;
+}
+
+.ql-profile__header-edit {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 20;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.ql-profile__header-edit:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    transform: scale(1.05);
+}
+
+.ql-profile__header-edit .ql-icons-outlined {
+    font-size: 20px;
+    line-height: 1;
+    color: white;
+}
+
+.ql-profile__avatar-box {
+    position: relative;
+    left: 20px;
+    width: 100px; 
+    height: 100px;
+    z-index: 10; 
+    pointer-events: none;
+}
+
+.ql-profile__avatar {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--ql-gray-color);
+    border-radius: 50%;
+    border: 2px solid var(--ql-secondary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--ql-primary-text-color);
+    position: relative;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+/* --- WASM PROCESSING STATES --- */
+
+.ql-is-processing {
+    position: relative;
+    pointer-events: none !important;
+    overflow: hidden;
+}
+
+/* Circular Avatar Processing Overlay */
+.ql-profile__avatar.ql-is-processing::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    z-index: 50;
+    animation: ql-pulse-overlay 1.5s infinite;
+    border: 2px solid var(--ql-primary-color);
+}
+
+/* Rectangular Header Processing Overlay */
+.ql-profile__header.ql-is-processing::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+    z-index: 15;
+    animation: ql-pulse-overlay 1.5s infinite;
+}
+
+@keyframes ql-pulse-overlay {
+    0% { opacity: 0.3; box-shadow: inset 0 0 10px rgba(var(--ql-primary-rgb), 0.2); }
+    50% { opacity: 0.7; box-shadow: inset 0 0 20px rgba(var(--ql-primary-rgb), 0.5); }
+    100% { opacity: 0.3; box-shadow: inset 0 0 10px rgba(var(--ql-primary-rgb), 0.2); }
+}
+
+.ql-profile__avatar.ql-profile__avatar--squared {
+    border-radius: 8px;
+}
+.ql-profile__avatar.ql-profile__avatar--squared.ql-is-processing::after {
+    border-radius: 8px;
+}
+
+/* --------------------------- */
+
+.ql-profile__frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.35);
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 20;
+    display: block;
+}
+
+.ql-profile__list-avatar-wrapper{
+    position: relative;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    margin-right: 15px;
+}
+
+.ql-profile__list-frame{
+   position: absolute; 
+   top: -15%; 
+   left: -15%; 
+   width: 130%; 
+   height: 130%; 
+   background-size: contain;
+   background-repeat: no-repeat; 
+   background-position: center; 
+   pointer-events: none; 
+   z-index: 2; 
+}
+
+.ql-profile__status {
+    position: absolute;
+    right: 6px; 
+    bottom: 6px;
+    width: 22px;
+    height: 22px;
+    background-color: #44b700;
+    border: 3px solid var(--ql-secondary-color);
+    border-radius: 50%;
+    z-index: 25;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    display: none;
+    pointer-events: none;
+}
+.ql-profile__status--online {
+    display: block;
+}
+
+.ql-profile__avatar-edit {
+    position: absolute;
+    right: -5px;
+    bottom: 0px;
+    z-index: 30;
+    pointer-events: auto;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background-color: var(--ql-secondary-color);
+    color: var(--ql-primary-text-color);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 0;
+    margin: 0;
+    transition: transform 0.2s;
+}
+
+.ql-profile__avatar-edit:hover {
+    background-color: var(--ql-light-background-color);
+    transform: scale(1.1);
+}
+
+.ql-profile__avatar-edit .ql-icons-outlined {
+    font-size: 18px;
+    line-height: 1;
+    color: var(--ql-primary-text-color);
+}
+
+.ql-profile__info-container {
+    position: relative;
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+    width:320px;
+    z-index: 5;
+}
+
+.ql-profile__meta {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.ql-profile__identity {
+    display: flex;
+    flex-direction: column;
+}
+
+.ql-profile__name {
+    margin: 0;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--font-size-xxxl);
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.ql-profile__name-edit {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.9);
+    cursor: pointer;
+    padding: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.ql-profile__name-edit:hover {
+    color: #fff;
+    background-color: rgba(255,255,255,0.2);
+}
+
+.ql-profile__username {
+    font-weight: 500;
+    margin-top: 2px;
+    display: flex;
+    gap: 4px;
+    font-size: var(--font-size-xl);
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.ql-profile__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row-reverse;
+    padding-right: 10px;
+}
+
+/* --- BUTTONS & LISTS --- */
+
+.ql-btn.follow-button {
+    border: 1px solid var(--ql-border-color);
+    background-color: var(--ql-secondary-color);
+    color: var(--ql-primary-text-color);
+    transition: all 0.2s ease;
+}
+
+/* NEW: Start Chat Button */
+.ql-btn.start-chat-button {
+    background-color: var(--ql-primary-color);
+    color: #fff;
+    border: 1px solid var(--ql-primary-color);
+    transition: all 0.2s ease;
+}
+
+.ql-btn.start-chat-button:hover {
+    background-color: var(--ql-active-icon-color);
+    border-color: var(--ql-active-icon-color);
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(var(--ql-primary-rgb), 0.3);
+}
+
+.ql-btn+.remove-suggestion {
+    background-color: var(--ql-error-color);
+}
+
+.ql-btn+.remove-suggestion:hover {
+    background-color: var(--ql-hover-warning-color);
+}
+
+.ql-btn.follow-button:hover {
+    background-color: var(--ql-light-background-color);
+    border-color: var(--ql-medium-gray-color);
+    transform: scale(1.05);
+}
+
+.ql-btn.follow-button:active {
+    transform: scale(0.95);
+}
+
+/* Estado: SIGUIENDO */
+.ql-btn.follow-button.ql-btn--active {
+    background-color: var(--ql-primary-color) !important;
+    border-color: var(--ql-primary-color) !important;
+    color: #ffffff !important;
+}
+
+.ql-btn.follow-button.ql-btn--active:hover {
+    opacity: 0.9;
+    box-shadow: 0 2px 8px rgba(var(--ql-primary-color-rgb), 0.3);
+}
+
+.ql-btn.unblock-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 16px;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid var(--ql-error-color, #ef5350);
+    color: var(--ql-error-color, #ef5350);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ql-btn.unblock-button:hover {
+    background-color: rgba(239, 83, 80, 0.1);
+    transform: scale(1.05);
+}
+
+/* Estado: PENDIENTE */
+.ql-btn.follow-button.ql-btn--pending {
+    background-color: var(--ql-medium-gray-color) !important; 
+    border-color: var(--ql-medium-gray-color) !important;
+    color: #ffffff !important;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.ql-btn.follow-button.ql-btn--pending:hover {
+    background-color: #9e9e9e !important;
+    opacity: 1;
+}
+
+.ql-profile__private-notice {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(0,0,0,0.03);
+    border-radius: 12px;
+    margin: 20px 20px 0 20px;
+    color: var(--ql-text-color);
+    border: 1px solid var(--ql-border-color);
+}
+
+/* --- TABS SECTION --- */
+
+.ql-profile__tabs {
+    display: flex;
+    justify-content: space-evenly;
+    background: var(--ql-secondary-color);
+    border-bottom: 1px solid var(--ql-border-color);
+    padding: 0 10px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.ql-profile__tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 15px 0;
+    cursor: pointer;
+    color: var(--ql-medium-gray-color);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.ql-profile__tab:hover {
+    color: var(--ql-primary-text-color);
+    background-color: rgba(0,0,0,0.02);
+}
+
+.ql-profile__tab.ql-profile__tab--active {
+    color: var(--ql-primary-color);
+    border-bottom-color: var(--ql-primary-color);
+}
+
+.ql-profile__tab-icon {
+    font-size: 22px;
+}
+
+.ql-profile__tab-count {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ql-profile__tab--dropdown {
+    position: relative;
+}
+
+.ql-profile__dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--ql-secondary-color);
+    border: 1px solid var(--ql-border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 100;
+    min-width: 220px;
+    display: none;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.ql-profile__dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--ql-primary-text-color);
+    transition: background 0.2s;
+}
+
+.ql-profile__dropdown-item:hover {
+    background-color: var(--ql-light-background-color);
+}
+
+.ql-profile__dropdown-badge {
+    background: var(--ql-primary-color);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* --- CONTENT SECTION --- */
+
+.ql-profile__content {
+    flex: 1;
+    background-color: var(--ql-light-background-color);
+    display: none;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.ql-profile__content.ql-profile__content--active {
+    display: flex;
+}
+
+.ql-profile__search {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: var(--ql-secondary-color);
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--ql-border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ql-search__input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: var(--ql-text-color);
+    outline: none;
+}
+
+.ql-profile__list {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: max-content;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ql-profile__list-item, .ql-profile__user-card {
+    background: var(--ql-secondary-color);
+    padding: 15px;
+    border-bottom: 1px solid var(--ql-border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.ql-account-request-list ul {
+    padding: var(--spacing-md);
+    margin: var(--spacing-xs);
+}
+
+.ql-profile__user-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.ql-profile__item-context {
+    font-size: 12px;
+    color: var(--ql-medium-gray-color);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ql-profile__item-link {
+    color: var(--ql-text-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+.ql-profile__item-link:hover {
+    text-decoration: underline;
+}
+
+.ql-profile__comment-preview {
+    font-size: 14px;
+    color: var(--ql-text-color);
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+.ql-profile__list-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    border: 1px solid var(--ql-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--ql-primary-text-color);
+    font-size: 18px;
+}
+
+#ql-root .ql-profile__list-avatar.squared {
+    border-radius: 0px !important;
+}
+
+.ql-profile__list-info {
+    flex-grow: 1;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ql-profile__list-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ql-primary-text-color);
+}
+
+.ql-profile__list-sub {
+    font-size: 13px;
+    color: var(--ql-medium-gray-color);
+    margin-top: 2px;
+}
+
+.ql-empty-container {
+    padding: 20px;
+    text-align: center;
+    list-style: none; 
+    color: var(--ql-medium-gray-color);
+    font-size: 14px;
+}
+
+/* ========================================================================
+   EDIT FORM STYLES (NEW)
+   ======================================================================== */
+
+.ql-profile-edit-form {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ql-form-section {
+    background: var(--ql-light-background-color);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--ql-border-color);
+}
+
+.ql-form-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ql-medium-gray-color);
+    margin: 0 0 15px 0;
+    font-weight: 700;
+}
+
+.ql-form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.ql-form-row.two-col > * {
+    flex: 1;
+}
+
+/* Form Groups & Inputs */
+.ql-form-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.ql-form-group:last-child {
+    margin-bottom: 0;
+}
+
+.ql-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--ql-secondary-color);
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    height: 48px;
+}
+
+.ql-input-wrapper:focus-within {
+    border-color: var(--ql-primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--ql-primary-rgb), 0.1);
+}
+
+.ql-input-icon {
+    width: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ql-medium-gray-color);
+    flex-shrink: 0;
+}
+
+.ql-input-field {
+    flex: 1;
+    border: none;
+    background: transparent;
+    height: 100%;
+    padding: 20px 10px 6px 0; /* Padding top for label space */
+    font-size: 15px;
+    color: var(--ql-text-color);
+    outline: none;
+    width: 100%;
+    font-family: inherit;
+}
+
+.ql-form-group label {
+    position: absolute;
+    left: 40px;
+    top: 14px;
+    font-size: 14px;
+    color: var(--ql-placeholder-color);
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+/* Floating Label Logic */
+.ql-form-group.active label,
+.ql-input-field:focus + label,
+.ql-input-field:not(:placeholder-shown) + label {
+    top: 6px;
+    font-size: 11px;
+    color: var(--ql-primary-color);
+}
+
+/* Validation Errors */
+.ql-field-error {
+    font-size: 11px;
+    color: var(--ql-error-color);
+    margin-top: 4px;
+    margin-left: 4px;
+    min-height: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.ql-form-group.has-error .ql-input-wrapper {
+    border-color: var(--ql-error-color);
+}
+
+.ql-form-group.has-error .ql-input-icon {
+    color: var(--ql-error-color);
+}
+
+.ql-form-group.has-error .ql-field-error {
+    opacity: 1;
+    min-height: 14px;
+}
+
+/* Global Status Message */
+.ql-form-status {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: center;
+    display: none; /* Hidden by default */
+    margin-bottom: 10px;
+    animation: fadeIn 0.3s ease;
+}
+
+.ql-form-status.error {
+    background-color: rgba(255, 59, 48, 0.1);
+    color: var(--ql-error-color);
+    border: 1px solid rgba(255, 59, 48, 0.2);
+    display: block;
+}
+
+.ql-form-status.info {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: var(--ql-primary-color);
+    border: 1px solid rgba(33, 150, 243, 0.2);
+    display: block;
+}
+
+/* Password Toggle Button */
+.ql-btn-toggle-password {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: transparent;
+    border: none;
+    color: var(--ql-text-color);
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.ql-btn-toggle-password:hover {
+    background-color: var(--ql-light-background-color);
+}
+
+.ql-btn-toggle-password .t {
+    flex: 1;
+    text-align: left;
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+.ql-btn-toggle-password.hidden {
+    display: none;
+}
+
+/* Password Container Animation */
+.ql-password-container {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ql-password-container.visible {
+    display: block; /* Override inline style from JS if needed, mostly JS handles display:block */
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 15px;
+    padding-top: 15px;
+    /* border-top: 1px solid var(--ql-light-border-color); */
+}
+
+/* Strength Meter */
+.password-strength-meter {
+    margin-top: 8px;
+    padding: 0 4px;
+}
+
+.strength-bar-container {
+    height: 4px;
+    background-color: var(--ql-light-border-color);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-text {
+    font-size: 11px;
+    color: var(--ql-light-gray-color);
+    text-align: right;
+    display: block;
+    font-weight: 500;
+}
+
+.strength-1 { background-color: #ff3b30; } /* Weak */
+.strength-2 { background-color: #ff9500; } /* Fair */
+.strength-3 { background-color: #ffcc00; } /* Good */
+.strength-4 { background-color: #34c759; } /* Strong */
+
+@media (min-width: 1024px) {
+    .ql-profile__list-avatar {
+        font-size: 22px !important;
+    }
+
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

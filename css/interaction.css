@@ -1,0 +1,109 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/interaction.css */
+.ql-interaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    width: fit-content;
+}
+
+.ql-interaction__actions {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.ql-interaction__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--spacing-sm);
+    cursor: pointer;
+    flex: 1;
+    position: relative;
+}
+
+.ql-interaction__icon {
+    margin-right: var(--spacing-sm);
+    cursor: pointer;
+    font-size: var(--icon-size-xxl);
+    color: var(--ql-icon-color);
+    transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.ql-interaction__count {
+    font-size: var(--font-size-sm);
+    color: var(--ql-interaction-count-color);
+    margin-top: 0;
+    min-width: 1ch;
+}
+
+/* Modificadores de Estado */
+.ql-interaction__icon--active {
+    color: var(--ql-active-icon-color);
+}
+
+.ql-interaction__bookmark {
+    margin-right: var(--spacing-sm);
+    cursor: pointer;
+    font-size: var(--icon-size-xxl);
+    color: var(--ql-icon-color);
+    transition: color 0.2s ease;
+}
+
+.ql-interaction__bookmark--active {
+    color: var(--ql-success-color) !important;
+}
+
+/* Indicador de Live (Dot) */
+.ql-interaction__live-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--ql-active-icon-color);
+    border-radius: 50%;
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 4px rgba(237, 73, 86, 0.5);
+}
+
+.ql-interaction--hidden {
+    display: none !important;
+}
+
+/* Modificadores de Layout */
+.ql-interaction--vertical {
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+}
+
+.ql-interaction--vertical .ql-interaction__actions {
+    flex-direction: column;
+}
+
+.ql-interaction--vertical .ql-interaction__item {
+    flex-direction: column;
+    margin-right: 0;
+    margin-bottom: var(--spacing-sm);
+}
+
+.ql-interaction--vertical .ql-interaction__icon {
+    margin-right: 0;
+    margin-bottom: 2px;
+}
+
+.ql-interaction--vertical .ql-interaction__bookmark {
+    margin-right: 0;
+    margin-top: var(--spacing-sm);
+}

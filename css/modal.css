@@ -1,0 +1,369 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: css/modal.css */
+#ql-root .ql-modal,
+#ql-root .ql-captcha {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+    transition: opacity 0.4s ease;
+    flex-direction: column;
+    user-select: none;
+}
+
+#ql-root .ql-modal-footer .ql-btn{
+    min-width: 160px;
+}   
+
+#ql-root .ql-modal input,
+#ql-root .ql-modal textarea,
+#ql-root .ql-modal .comment-input,
+#ql-root .ql-modal [contenteditable="true"] {
+    user-select: auto;
+}
+@media (max-width: 768px) {
+    #ql-root .ql-modal,
+    #ql-root .ql-captcha {
+        width: 100%;
+        right: 0;
+    }
+}
+@media (min-width: 769px) {
+    #ql-root .ql-modal,
+    #ql-root .ql-captcha {
+        width: 500px;
+        right: 0;
+    }
+}
+#ql-root .ql-modal .ql-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#ql-root .ql-captcha .ql-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+#ql-root .ql-modal .ql-modal-content,
+#ql-root .ql-captcha .ql-modal-content {
+    padding: var(--spacing-display);
+    text-align: left;
+    width: 98%;
+}
+#ql-root .ql-modal .ql-body {
+    background-color: var(--ql-bw-background-color);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: var(--ql-primary-text-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: var(--spacing-xl);
+    margin: var(--spacing-xl);
+}
+#ql-root .ql-captcha #captcha-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: var(--spacing-xl);
+    margin: var(--spacing-xl);
+    width: 100%;
+    align-items: center;
+}
+#ql-root .ql-modal .ql-modal-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--spacing-sm);
+    width: 35%;
+}
+#ql-root .ql-modal .report-options-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    background-color: var(--ql-background-color);
+    border: 1px solid var(--ql-border-color);
+    border-radius: 5px;
+    text-align: left;
+    margin-bottom: 15px;
+}
+#ql-root .ql-modal .report-option {
+    padding: var(--spacing-xl) var(--spacing-xxxl);
+    border-bottom: 1px solid var(--ql-border-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: var(--font-size-md);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#ql-root .ql-modal .report-option:last-child {
+    border-bottom: none;
+}
+#ql-root .ql-modal .report-option:hover {
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-primary-text-color);
+}
+#ql-root .ql-modal .report-option.selected {
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-primary-color);
+    font-weight: bold;
+}
+#ql-root .ql-modal .report-observation {
+    display: none;
+    width: 100%;
+    margin-bottom: 15px;
+    min-height: 80px;
+    box-sizing: border-box;
+}
+#ql-root .ql-modal .block-user-container {
+    padding: 15px;
+    border: 1px solid var(--ql-warning-color);
+    border-radius: 5px;
+    text-align: left;
+}
+#ql-root .ql-modal .block-user-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--ql-warning-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+#ql-root .ql-modal .block-user-label input {
+    margin-top: 4px;
+    cursor: pointer;
+}
+#ql-root .ql-modal .report-content {
+    text-align: center;
+}
+#ql-root .ql-modal .report-content p {
+    text-align: center;
+    font-weight: bold;
+    font-size: var(--font-size-xl);
+    margin-bottom: 10px;
+}
+#ql-root .ql-modal .report-content .interaction-icon {
+    font-size: 50px;
+}
+
+/* =========================================
+   Report Success State
+   ========================================= */
+#ql-root .ql-modal .report-success-content {
+    padding: var(--spacing-xxxl);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#ql-root .ql-modal .report-success-icon {
+    color: var(--ql-success-color);
+    font-size: 64px;
+    line-height: 1.1; 
+    padding-bottom: 6px; 
+    margin-bottom: var(--spacing-xl);
+    display: inline-block;
+    overflow: visible;
+}
+#ql-root .ql-modal .report-success-title {
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+    margin: 0;
+    color: var(--ql-primary-text-color);
+}
+#ql-root .ql-modal .report-success-msg {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+    margin-top: var(--spacing-sm);
+    color: var(--ql-text-color);
+}
+/* ========================================= */
+
+#ql-root .ql-modal .close-modal,
+#ql-root .ql-captcha .close-modal {
+    position: relative;
+    float: right;
+    top: -25px;
+}
+#ql-root .ql-modal .report-content .close-button {
+    display: inline;
+    padding-left: var(--spacing-xxxl);
+    padding-right: var(--spacing-xxxl);
+}
+#ql-root .ql-modal .report-content .adv {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--ql-text-color);
+    padding: var(--spacing-xl);
+    margin-bottom: 15px;
+}
+#ql-root .ql-modal .ql-to-work,
+#ql-root .ql-modal .comment-to-edit {
+    background-color: var(--ql-bw-background-color);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border: solid 1px var(--ql-light-border-color);
+    border-radius: 5px;
+    color: var(--ql-primary-text-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    gap: var(--spacing-xl);
+}
+#ql-root .ql-modal .delete-button {
+    background-color: var(--ql-warning-color);
+    color: var(--ql-background-color);
+}
+#ql-root .ql-modal .close-button,
+#ql-root .ql-modal .save-button,
+#ql-root .ql-modal .send-button {
+    background-color: var(--ql-success-color);
+    color: var(--ql-background-color);
+}
+#ql-root .ql-modal .delete-button:hover,
+#ql-root .ql-modal .report-button:hover {
+    background-color: var(--ql-hover-warning-color);
+    color: var(--ql-background-color);
+}
+#ql-root .ql-modal .report-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+#ql-root .ql-modal .close-button:hover,
+#ql-root .ql-modal .save-button:hover,
+#ql-root .ql-modal .send-button:hover {
+    background-color: var(--ql-primary-color);
+    color: var(--ql-background-color);
+}
+#ql-root .ql-modal label {
+    color: var(--ql-primary-text-color);
+    font-size: var(--font-size-sm);
+    padding: 0 0 var(--spacing-sm) 0;
+}
+#ql-root .ql-modal .report-button {
+    background-color: var(--ql-warning-color);
+    color: var(--ql-background-color);
+}
+#ql-root .ql-modal .confirm-delete-button:hover {
+    background-color: var(--ql-hover-warning-color);
+}
+#ql-root .ql-modal .edit-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 4px;
+    width: -webkit-fill-available;
+}
+#ql-root .ql-modal .edit-container .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    position: relative;
+    width: 100%;
+}
+#ql-root .ql-modal .edit-container .ql-icons-outlined {
+    cursor: pointer;
+}
+#ql-root .ql-modal .send-button {
+    padding-left: var(--spacing-xl);
+}
+#ql-root .ql-modal .comment-input {
+    background-color: var(--ql-light-background-color);
+    flex: 1;
+    padding: var(--spacing-md);
+    font-size: var(--font-size-xl);
+    outline: none;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    color: var(--ql-text-color);
+    border: solid 1px var(--ql-light-border-color);
+    width: -webkit-fill-available;
+    max-height: 250px;
+    overflow-y: auto;
+}
+#ql-root .ql-modal .comment-to-edit .ql-icons-outlined {
+    font-size: var(--icon-size-xxxl);
+}
+#ql-root .ql-modal .progress-bar {
+    height: 4px;
+    background-color: #4caf50;
+    width: 0%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+#ql-root .ql-modal .progress-bar.full {
+    background-color: #f44336;
+}
+#ql-root .ql-modal .comment-input::placeholder {
+    color: var(--ql-placeholder-color);
+}
+#ql-root .ql-modal .edit-comment-container {
+    display: flex;
+    flex-direction: column;
+    margin: var(--spacing-md);
+    padding: var(--spacing-md);
+    border-radius: 5px;
+}
+#ql-root .ql-modal .transcript-text {
+    flex: 1;
+    margin-left: var(--spacing-md);
+    font-size: var(--font-size-md);
+    color: var(--ql-primary-text-color);
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+}
+#ql-root .ql-modal .avatar {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+#ql-root .ql-modal .edit-container .input-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#ql-root .ql-modal .edit-container .input-container .emoji-button {
+    position: absolute;
+    right: 12px;
+    bottom: 6px;
+    z-index: 10;
+    cursor: pointer;
+    background: transparent;
+}
+
+#ql-root .ql-modal .comment-input {
+    padding-right: 40px !important;
+    position: relative;
+    z-index: 1;
+}
+
+#ql-root .ql-modal .progress-bar {
+    margin-top: -2px;
+    z-index: 2;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    bottom: 0px;
+    left: 0px;
+}

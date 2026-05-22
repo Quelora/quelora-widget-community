@@ -1,0 +1,14 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/quelora-enterprise.css */
+@import url('./enterprise/gamification.css');
+@import url('./enterprise/survey.css');
+@import url('./enterprise/chat.css');
+@import url('./enterprise/livechat.css');
+@import url('./enterprise/ads.css');

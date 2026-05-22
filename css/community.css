@@ -1,0 +1,689 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/community.css */
+
+
+/* =========================================
+   1. MAIN CONTAINERS (Drawer & Lists)
+   ========================================= */
+#ql-root .ql-comments,
+#ql-root .ql-likes {
+    font-weight: 500;
+    font-family: var(--ql-font-family-system);
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100vw;
+    max-width: 100%;
+    height: 100%;
+    background-color: var(--ql-secondary-color);
+    transition: bottom 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 9000;
+    color: var(--ql-primary-text-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+    content-visibility: auto;
+    will-change: bottom, height;
+}
+
+#ql-root .ql-comments.active,
+#ql-root .ql-likes.active {
+    bottom: 0;
+}
+
+#ql-root .ql-comments .drawer-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+#ql-root .ql-likes {
+    bottom: -70%;
+    height: 70%;
+}
+
+#ql-root #likes-list {
+    width: 100%;
+}
+
+/* =========================================
+   2. HEADERS (Community Header)
+   ========================================= */
+#ql-root .ql-community-header {
+    cursor: grab;
+    user-select: none;
+    padding: var(--spacing-xl);
+    border-bottom: 1px solid var(--ql-dark-background-color);
+    background-color: var(--ql-secondary-color);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    height: 60px; /* Enforce min-height for touch targets */
+}
+
+#ql-root .ql-community-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background-color: var(--ql-gray-color);
+    border-radius: 2px;
+}
+
+#ql-root .ql-community-header__title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* HITBOX EXPANSION FIX:
+   Increases clickable area for settings/profile buttons without affecting layout.
+*/
+#ql-root .ql-community-header .profile-settings,
+#ql-root .ql-community-header .general-settings,
+#ql-root .ql-community-header .profile-button {
+    position: relative; /* Anchor for pseudo-element */
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ql-root .ql-community-header .profile-settings::after,
+#ql-root .ql-community-header .general-settings::after,
+#ql-root .ql-community-header .profile-button::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    bottom: -15px;
+    left: -15px;
+    background: transparent;
+    z-index: 20;
+}
+
+/* =========================================
+   3. COMMENT THREADS (Thread Block)
+   ========================================= */
+#ql-root .ql-community-threads {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding: var(--spacing-xs);
+    /*
+     * Safe-area padding belongs on the scrollable container, not on
+     * .ql-comment-bar. When overflow:hidden is present on an ancestor
+     * (drawer, .drawer-content), padding-bottom on a flex child at the
+     * bottom of the stack is clipped with no visual effect in Edge mobile.
+     * On a scroll container, padding-bottom correctly adds to scrollable
+     * height, keeping the last thread above the gesture bar + comment-bar.
+     * env() evaluates to 0 where viewport-fit=cover is absent or unsupported.
+     */
+    padding-bottom: max(var(--spacing-xs), var(--ql-safe-bottom, 0px));
+    margin-bottom: 0;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+#ql-root .ql-thread {
+    position: relative;
+    padding: var(--spacing-xxs);
+    content-visibility: visible;
+    flex-shrink: 0; /* Prevent thread items from being squashed */
+}
+
+#ql-root .ql-thread__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#ql-root .ql-thread__load-more {
+    font-size: var(--font-size-sm);
+    text-align: right;
+    color: var(--ql-light-gray-color);
+    padding-left: 66px;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: var(--spacing-sm);
+}
+
+/* =========================================
+   4. AVATARS (Strict BEM)
+   ========================================= */
+#ql-root .ql-avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 51px;
+    height: 51px;
+    margin: var(--spacing-md);
+    margin-right: var(--spacing-xl);
+    cursor: pointer;
+    z-index: 1;
+}
+
+#ql-root .ql-avatar__frame {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#ql-root .ql-avatar__frame::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    filter: blur(5px);
+    opacity: 0.6;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+#ql-root .ql-avatar:hover .ql-avatar__frame::after {
+    filter: blur(8px);
+    opacity: 0.8;
+    transform: scale(1.15);
+}
+
+#ql-root .ql-avatar__image {
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    background-color: var(--ql-gray-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xxl);
+    font-weight: bold;
+    flex-shrink: 0;
+    border: var(--avatar-small-border-width) solid var(--avatar-border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#ql-root .ql-avatar__image.squared,
+#ql-root .ql-avatar__frame.squared {
+    border-radius: 0px !important;
+}
+
+#ql-root .ql-likes .ql-avatar__image {
+    width: 56px;
+    height: 56px;
+}
+
+/* =========================================
+   5. THREAD INFO
+   ========================================= */
+#ql-root .ql-thread__info {
+    flex-grow: 1;
+    min-width: 0;
+    margin-top: 6px;
+    height: -webkit-fill-available;
+}
+
+#ql-root .ql-thread__author {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+}
+
+#ql-root .ql-thread__date {
+    padding-left: var(--spacing-display);
+    color: var(--ql-light-gray-color);
+    font-size: var(--font-size-xs);
+}
+
+#ql-root .ql-thread__body {
+    margin-top: -26px;
+    padding-left: 66px;
+    padding-right: 17px;
+    font-size: var(--font-size-md);
+    color: var(--ql-primary-text-color);
+}
+
+#ql-modal .ql-thread .ql-body-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#ql-root .ql-thread__body blockquote {
+    background-color: var(--ql-light-background-color);
+    border-left: 4px solid var(--ql-primary-color);
+    padding: 8px 12px;
+    margin: 6px 0;
+    font-size: var(--font-size-sm);
+    line-height: 1.4;
+    border-radius: 8px;
+    color: var(--ql-text-color);
+    word-break: break-word;
+    box-shadow: var(--ql-shadow);
+}
+
+#ql-root .ql-thread__body a {
+    text-decoration: none;
+    color: var(--ql-primary-text-color);
+    font-size: var(--font-size-md);
+}
+
+#ql-root .ql-thread__body p {
+   margin: var(--spacing-xxs);
+}
+
+/* =========================================
+   6. INTERACTIONS
+   ========================================= */
+#ql-root .ql-thread__like {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: var(--spacing-xl);
+    padding-right: var(--spacing-sm);
+}
+
+#ql-root .ql-thread__like-icon {
+    cursor: pointer;
+    font-size: var(--font-size-xl);
+    color: var(--ql-icon-color);
+}
+
+#ql-root .ql-thread__like-icon.active {
+    color: var(--ql-active-icon-color);
+}
+
+#ql-root .ql-thread__like-count {
+    font-size: var(--font-size-xs);
+    color: var(--ql-medium-gray-color);
+    cursor: pointer;
+}
+
+#ql-root .ql-thread__actions {
+    padding-left: 66px;
+    padding-top: 4px;
+    padding-bottom: 0px;
+    font-size: var(--font-size-xxs);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#ql-root .ql-thread__action-icon {
+    color: var(--ql-success-color);
+    cursor: pointer;
+    padding-right: var(--spacing-xl);
+}
+
+#ql-root .ql-thread__action-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+#ql-root .ql-action-text {
+    color: var(--ql-success-color);
+    cursor: pointer;
+    font-size: var(--font-size-xs);
+    padding-bottom: var(--spacing-sm);
+    padding-right: var(--spacing-xl);
+}
+
+/* =========================================
+   7. REPLIES AND NESTED
+   ========================================= */
+#ql-root .ql-thread__replies {
+    padding-left: var(--spacing-xl);
+}
+
+#ql-root .ql-thread__replies .ql-thread__replies {
+    margin: var(--spacing-xs);
+    padding-left: 0;
+}
+
+#ql-root .ql-reply-header {
+    background-color: var(--ql-dark-background-color);
+    padding: var(--spacing-md);
+    margin: 8px;
+    margin-bottom: var(--spacing-sm);
+    border-radius: 5px;
+}
+
+#ql-root .ql-reply-header .ql-reply-close {
+    float: right;
+    cursor: pointer;
+    font-size: var(--icon-size-md);
+    color: var(--ql-icon-color);
+}
+
+/* =========================================
+   8. AUDIO COMPONENTS
+   ========================================= */
+#ql-root .ql-thread__audio {
+    margin-top: var(--spacing-sm);
+    padding-left: 48px;
+    display: flex;
+    align-items: center;
+}
+
+/* =========================================
+   9. COMMENT BAR (Input Bar)
+   ========================================= */
+#ql-root .ql-comment-bar {
+    margin-top: auto;
+    flex-shrink: 0;
+    /*
+     * padding-bottom with var(--ql-safe-bottom, 0px) was removed from here.
+     * This element sits at the bottom of an overflow:hidden flex container;
+     * in Edge mobile, any padding added here is clipped by the ancestor and
+     * produces no visual separation from the gesture bar. The safe-area
+     * inset is instead applied to .ql-community-threads (the scrollable
+     * sibling above), which correctly reserves space via its scrollable height.
+     * The bar's own bottom edge aligns with the drawer bottom; the drawer's
+     * padding-bottom in misc.css (var(--ql-safe-bottom, 0px)) absorbs the
+     * gesture bar for both components at once.
+     */
+    border-top: 1px solid var(--ql-dark-background-color);
+    background-color: var(--ql-secondary-color);
+    z-index: 1000;
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    overflow: visible;
+    transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-radius 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: width, border-radius, transform;
+}
+
+#ql-root .ql-comment-bar:not(.ql-comment-bar--minimized) {
+    animation: qlSlideUpBar 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes qlSlideUpBar {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+#ql-root .ql-comments.active .ql-comment-bar {
+    display: flex;
+}
+
+/* MINIMIZED STATE (Bubble) - UX FIX */
+#ql-root .ql-comment-bar--minimized {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    /* FIX: Use fixed positioning to prevent clipping by parent overflow */
+    position: fixed !important;
+    right: 20px !important;
+    bottom: 10% !important;
+    left: auto !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    padding: 0 !important;
+    cursor: pointer;
+    z-index: 9010;
+    border: 1px solid var(--ql-medium-gray-color);
+    overflow: hidden;
+}
+
+#ql-root .ql-comment-bar__minimized-icon {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+    transition: opacity 0.2s ease 0.1s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    color: var(--ql-primary-text-color);
+}
+
+#ql-root .ql-comment-bar--minimized .ql-comment-bar__minimized-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+#ql-root .ql-comment-bar__input-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease 0.1s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-bottom: var(--spacing-xl);
+    padding-left: var(--spacing-xl);
+    padding-right: var(--spacing-xl);
+    position: relative;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+#ql-root .ql-comment-bar--minimized .ql-comment-bar__input-container {
+    opacity: 0 !important;
+    transform: translateY(100%);
+    pointer-events: none;
+    display: none !important;
+    transition: opacity 0.1s ease 0s, transform 0.1s ease 0s;
+}
+
+#ql-root .ql-comment-bar--minimized .live-reaction-container,
+#ql-root .ql-comment-bar--minimized .ql-thread__header {
+    display: none!important;
+}
+
+#ql-root .ql-comment-input {
+    background-color: var(--ql-light-background-color);
+    flex: 1;
+    padding: var(--spacing-md);
+    font-size: var(--font-size-md);
+    outline: none;
+    border: solid 1px var(--ql-light-border-color);
+    max-height: 250px;
+    overflow-y: auto;
+    width: 100%;
+    color: var(--ql-text-color);
+}
+
+#ql-root .progress-bar {
+    position: absolute;
+    bottom: 6px;
+    left: 46px;
+    height: 4px;
+    background-color: rgb(76, 175, 80);
+    width: 0%;
+    transition: width 0.3s, background-color 0.3s;
+}
+
+#ql-root .ql-comment-input:empty:before {
+    content: attr(placeholder);
+    color: #888;
+    pointer-events: none;
+}
+
+#ql-root .ql-voice-button,
+#ql-root .ql-send-button,
+#ql-root .ql-emoji-button {
+    cursor: pointer;
+    width: max-content;
+    height: max-content
+}
+
+#ql-root .ql-voice-button:hover {
+    color: var(--ql-primary-color);
+}
+
+#ql-root .ql-comment-disabled {
+    padding: var(--spacing-display);
+    text-align: center;
+    font-size: var(--font-size-md);
+    display: none;
+    border-top: 1px solid var(--ql-dark-background-color);
+    color: var(--ql-text-color);
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+/* =========================================
+   10. LIVE STATS & ANIMATIONS
+   ========================================= */
+#ql-root .ql-live-stats-container {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: var(--ql-secondary-text-color);
+    background-color: var(--ql-light-background-color);
+    border-top: 1px solid var(--ql-border-color);
+    border-bottom: 1px solid var(--ql-border-color);
+    animation: liveBarPulse 2s infinite ease-in-out;
+}
+
+#ql-root .ql-status-dot {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    background-color: #44b700;
+    border: 2px solid var(--ql-secondary-color);
+    border-radius: 50%;
+    z-index: 15;
+    display: none;
+    pointer-events: none;
+}
+
+#ql-root .ql-status-dot--online {
+    display: block;
+}
+
+/* =========================================
+   11. PREVIEWS & TOASTS
+   ========================================= */
+#ql-root .ql-reply-preview {
+    background-color: var(--ql-dark-background-color);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#ql-root .ql-share-url {
+    word-break: break-all;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+    #ql-root .ql-thread__body blockquote {
+        font-size: var(--font-size-xs);
+        padding: 6px 10px;
+        border-left-width: 3px;
+    }
+}
+
+#ql-root .mention-suggestions{
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 50vh;
+}
+
+#ql-root .ql-mention-list {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#ql-root .ql-mention-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#ql-root .ql-mention-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.2);
+  border-radius: 3px;
+}
+
+#ql-root .ql-refresh-button {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--ql-secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9500;
+    pointer-events: none;
+    color: var(--ql-primary-color);
+    margin-top: 10px;
+}
+
+/* =========================================
+   12. GIF PICKER
+   ========================================= */
+
+/*
+ * Trigger button injected by GifPickerModule._injectTriggerButton into
+ * .ql-comment-bar__input-container, adjacent to the emoji button.
+ * Uses the shared ql-icons-outlined glyph font so no image assets are needed.
+ */
+#ql-root .ql-gif-picker-btn {
+    cursor: pointer;
+    font-size: var(--icon-size-xxl);
+    color: var(--ql-icon-color);
+    flex-shrink: 0;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.15s ease;
+    user-select: none;
+}
+
+#ql-root .ql-gif-picker-btn:hover {
+    color: var(--ql-primary-color);
+    transform: scale(1.1);
+}
+
+#ql-root .ql-gif-picker-btn:active {
+    transform: scale(0.95);
+}

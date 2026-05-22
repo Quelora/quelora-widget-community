@@ -1,0 +1,192 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: css/chat.search.css */
+/* ========================================================================
+   QUELORA CHAT MESH — IN-CONVERSATION SEARCH BAR
+   Version: 1.0.0
+
+   Injected between the conversation header and the messages area by both
+   _Search (peer) and _GroupSearch (group) engines. Shares the BEM block
+   `.ql-chat-search-bar` and is fully theme-aware via the design-token layer.
+   ======================================================================== */
+
+/* -------------------------------------------------------------------------
+   Block: .ql-chat-search-bar
+   Container inserted via insertAdjacentElement('afterend') after the header.
+   -------------------------------------------------------------------------  */
+
+.ql-chat-search-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--ql-secondary-color);
+    border-bottom: 1px solid var(--ql-light-border-color);
+    height: 48px;
+    flex-shrink: 0;
+    animation: qlSlideDown 0.2s var(--ql-transition-smooth);
+    will-change: transform, opacity;
+}
+
+/* -------------------------------------------------------------------------
+   Element: __icon
+   Material icon glyph rendered via .ql-icons-outlined.
+   -------------------------------------------------------------------------  */
+
+.ql-chat-search-bar__icon {
+    font-size: var(--icon-size-lg);
+    color: var(--ql-medium-gray-color);
+    flex-shrink: 0;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+}
+
+/* -------------------------------------------------------------------------
+   Element: __input
+   Full-width text field. Inherits the system's input token set.
+   -------------------------------------------------------------------------  */
+
+.ql-chat-search-bar__input {
+    flex: 1;
+    min-width: 0;
+    height: 32px;
+    padding: 0 var(--spacing-md);
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 16px;
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-text-color);
+    font-family: var(--ql-font-family-system);
+    font-size: var(--font-size-sm);
+    outline: none;
+    transition: border-color var(--ql-transition-fast),
+                box-shadow   var(--ql-transition-fast);
+}
+
+.ql-chat-search-bar__input::placeholder {
+    color: var(--ql-placeholder-color);
+    opacity: 0.7;
+}
+
+.ql-chat-search-bar__input:focus {
+    border-color: var(--ql-primary-color);
+    box-shadow: 0 0 0 2px rgba(31, 168, 245, 0.12);
+}
+
+/* -------------------------------------------------------------------------
+   Element: __count
+   Displays "N / M" result indicator. Hidden when empty.
+   -------------------------------------------------------------------------  */
+
+.ql-chat-search-bar__count {
+    font-size: var(--font-size-xxs);
+    color: var(--ql-medium-gray-color);
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 36px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+/* -------------------------------------------------------------------------
+   Element: __nav
+   Previous / next arrow buttons.
+   -------------------------------------------------------------------------  */
+
+.ql-chat-search-bar__nav {
+    background: none;
+    border: none;
+    color: var(--ql-medium-gray-color);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background-color var(--ql-transition-fast),
+                color            var(--ql-transition-fast);
+    padding: 0;
+}
+
+.ql-chat-search-bar__nav:hover {
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-primary-color);
+}
+
+.ql-chat-search-bar__nav:active {
+    transform: scale(0.92);
+}
+
+.ql-chat-search-bar__nav:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.ql-chat-search-bar__nav .ql-icons-outlined {
+    font-size: var(--icon-size-lg);
+    line-height: 1;
+}
+
+/* -------------------------------------------------------------------------
+   Element: __close
+   Dismisses the search bar and restores message highlights.
+   -------------------------------------------------------------------------  */
+
+.ql-chat-search-bar__close {
+    background: none;
+    border: none;
+    color: var(--ql-medium-gray-color);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background-color var(--ql-transition-fast),
+                color            var(--ql-transition-fast);
+    padding: 0;
+}
+
+.ql-chat-search-bar__close:hover {
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-error-color);
+}
+
+.ql-chat-search-bar__close:active {
+    transform: scale(0.92);
+}
+
+.ql-chat-search-bar__close .ql-icons-outlined {
+    font-size: var(--icon-size-lg);
+    line-height: 1;
+}
+
+/* -------------------------------------------------------------------------
+   Highlight marks injected by _Search / _GroupSearch into message nodes.
+   -------------------------------------------------------------------------  */
+
+mark.ql-search-hl {
+    background-color: rgba(255, 214, 0, 0.45);
+    color: inherit;
+    border-radius: 2px;
+    padding: 0 1px;
+}
+
+mark.ql-search-hl--active {
+    background-color: var(--ql-primary-color);
+    color: #ffffff;
+    border-radius: 2px;
+    padding: 0 1px;
+    box-shadow: 0 0 0 2px rgba(31, 168, 245, 0.35);
+}

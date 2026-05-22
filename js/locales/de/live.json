@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "Verbindung zu Live wird hergestellt...",
+    "connectionEstablished": "Verbindung hergestellt!",
+    "liveChatUnavailable": "Live-Chat ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "loginRequiredToSendLiveMessage": "Sie müssen angemeldet sein, um Live-Nachrichten zu senden.",
+    "liveNotStartedTitle": "Live hat noch nicht begonnen",
+    "liveNotStartedModalMessage": "Diese Live-Sitzung hat noch nicht begonnen. Wir werden Sie automatisch wieder verbinden, wenn sie startet.",
+    "liveNowStarting": "Live startet jetzt...",
+    "confirmExistLiveSession": "Sind Sie sicher, dass Sie schließen möchten? Durch das Beenden wird die Live-Sitzung gestoppt und Sie verlieren Echtzeit-Kommentare.",
+    "subscribingToChannel": "Abonnieren des Live-Kanals...",
+    "liveConnectionErrorTitle": "Live-Verbindungsfehler",
+    "liveChatFullTitle": "Live-Chat voll",
+    "watchersActive": "aktive Zuschauer",
+    "oneWatcherActive": "1 aktiver Zuschauer",
+    "isTyping": "tippt",
+    "areTyping": "tippen",
+    "liveWatchersConnected": "Personen verbunden"
+}

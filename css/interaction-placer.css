@@ -1,0 +1,638 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: css/plugins/placer/interaction-placer.css */
+/**
+ * @module Plugins/InteractionPlacer/CSS
+ * @description Styles for the hover panel pill and the independent style toolbar.
+ * UX Refactor: Tabbed architecture, Hash Latency, Export Config Modal overlay, 
+ * Drop Zone highlights, and Smart Visual Feedback Tooltips.
+ * @version 19.9.0
+ */
+
+/* ============================================================================
+   1. HOVER PANEL (compact pill — follows the hovered bar)
+   ============================================================================ */
+#ql-placer-panel {
+    position: fixed;
+    display: none;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background-color: #111111;
+    border: 1px solid #333333;
+    border-radius: 30px;
+    z-index: 1000000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    user-select: none;
+}
+
+/* ============================================================================
+   2. STYLE TOOLBAR (independent strip — fixed top-center)
+   ============================================================================ */
+#ql-placer-style-toolbar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-110%);
+    display: flex;
+    flex-direction: column;
+    width: clamp(480px, 75vw, 950px);
+    max-height: 85vh;
+    background-color: #111111;
+    border: 1px solid #333333;
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    z-index: 999999;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    user-select: none;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible; 
+}
+
+#ql-placer-style-toolbar.is-open {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ── Tabs Navigation ──────────────────────────────────────────────────────── */
+.ql-placer-tabs {
+    display: flex;
+    background-color: #0d0d0d;
+    border-bottom: 1px solid #222222;
+    padding: 0 40px 0 16px;
+    flex-shrink: 0;
+}
+
+.ql-placer-tab-btn {
+    padding: 12px 20px;
+    background: transparent;
+    border: none;
+    color: #666666;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    font-family: inherit;
+}
+
+.ql-placer-tab-btn:hover {
+    color: #aaaaaa;
+}
+
+.ql-placer-tab-btn.is-active {
+    color: #3897f0;
+    border-bottom-color: #3897f0;
+}
+
+.ql-placer-tab-content {
+    display: none;
+}
+
+.ql-placer-tab-content.is-active {
+    display: block;
+}
+
+/* Scrollable controls area */
+.ql-placer-toolbar-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 16px 8px;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+}
+
+/* ── Section structure & Header Inline Row ────────────────────────────────── */
+.ql-placer-header-inline-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.ql-placer-section-header {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #aaaaaa;
+    padding: 4px 0 4px 8px;
+    border-left: 3px solid #555555;
+    margin: 0;
+}
+
+.ql-placer-section-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #222222;
+    margin: 12px 0;
+}
+
+.ql-placer-section-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* ── Flex Controls Wrapper & Grids ────────────────────────────────────────── */
+.ql-placer-flex-controls-wrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    background-color: #161616;
+    border: 1px solid #252525;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 4px;
+    min-width: 0;
+}
+
+.ql-placer-toggles-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 55%;
+    min-width: 260px;
+}
+
+.ql-placer-toggles-col .ql-placer-toolbar-sep {
+    display: none;
+}
+.ql-placer-toggles-col .ql-placer-section-row {
+    gap: 12px;
+    row-gap: 12px;
+}
+
+.ql-placer-spacing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 12px;
+    row-gap: 6px;
+    flex: 1 1 35%;
+    min-width: 200px;
+}
+
+.ql-placer-spacing-grid .ql-placer-group-label {
+    margin-bottom: 2px;
+}
+
+/* ── Toolbar footer ───────────────────────────────────────────────────────── */
+.ql-placer-toolbar-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 8px 16px;
+    border-top: 1px solid #222222;
+    background-color: #0d0d0d;
+    flex-shrink: 0;
+}
+
+/* Apply & Export buttons */
+.ql-placer-apply-btn,
+.ql-placer-export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+    font-family: inherit;
+    flex-shrink: 0;
+}
+
+.ql-placer-apply-btn {
+    background-color: #27ae60;
+}
+.ql-placer-apply-btn:hover { background-color: #2ecc71; transform: scale(1.03); }
+.ql-placer-apply-btn:active { background-color: #1e8449; transform: scale(0.98); }
+
+.ql-placer-export-btn {
+    background-color: #3897f0;
+}
+.ql-placer-export-btn:hover { background-color: #5dade2; transform: scale(1.03); }
+.ql-placer-export-btn:active { background-color: #2874a6; transform: scale(0.98); }
+
+.ql-placer-apply-btn svg,
+.ql-placer-export-btn svg {
+    flex-shrink: 0;
+}
+
+/* ============================================================================
+   3. EXPORT MODAL OVERLAY
+   ============================================================================ */
+.ql-placer-export-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background-color: rgba(13, 13, 13, 0.98);
+    z-index: 105;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(4px);
+}
+
+.ql-placer-export-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.ql-placer-export-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ql-placer-export-body {
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+.ql-placer-export-block {
+    display: flex;
+    flex-direction: column;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.ql-placer-export-block-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    background: #222;
+    border-bottom: 1px solid #333;
+}
+
+.ql-placer-export-block-top span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
+.ql-placer-copy-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.ql-placer-copy-btn:hover {
+    background: #333;
+    border-color: #666;
+}
+
+.ql-placer-copy-btn.is-copied {
+    background: #27ae60;
+    border-color: #27ae60;
+    color: #fff;
+}
+
+.ql-placer-export-block textarea {
+    width: 100%;
+    height: 120px;
+    background: transparent;
+    border: none;
+    color: #e91e63;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 12px;
+    resize: vertical;
+    outline: none;
+}
+.ql-placer-export-block textarea[data-type="json"] {
+    color: #f1c40f;
+    height: 100px;
+}
+
+/* ============================================================================
+   4. SHARED BUTTON STYLES
+   ============================================================================ */
+.ql-placer-btn {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #888888;
+    background-color: transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.ql-placer-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.ql-placer-btn:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.ql-placer-btn.active {
+    background-color: #1a2a3a;
+    color: #3897f0;
+}
+
+/* Drag handle */
+.ql-placer-btn--drag {
+    background-color: #c0392b !important;
+    color: #ffffff !important;
+    border-radius: 50%;
+    cursor: grab;
+}
+
+.ql-placer-btn--drag:active {
+    cursor: grabbing;
+}
+
+.ql-placer-btn--drag.is-set {
+    background-color: #27ae60 !important;
+}
+
+/* Tune toggle */
+.ql-placer-btn--tune {
+    border-radius: 50%;
+}
+.ql-placer-btn--tune.active {
+    background-color: #252525;
+    color: #ffffff;
+}
+
+/* Close (absolute top-right of toolbar) */
+.ql-placer-btn--close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border-radius: 50%;
+    z-index: 101; 
+}
+
+/* Text-label pill buttons */
+.ql-placer-btn--pill {
+    width: auto;
+    border-radius: 10px;
+    padding: 0 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #666666;
+    height: 22px;
+}
+
+.ql-placer-btn--pill.active {
+    color: #3897f0;
+    background-color: #1a2a3a;
+}
+
+/* Inject position pills */
+.ql-placer-btn--pos-pill {
+    width: auto;
+    border-radius: 10px;
+    padding: 0 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #666666;
+    height: 22px;
+}
+
+.ql-placer-btn--pos-pill.active {
+    color: #3897f0;
+    background-color: #1a2a3a;
+}
+
+/* ============================================================================
+   5. TOOLBAR LAYOUT HELPERS
+   ============================================================================ */
+.ql-placer-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.ql-placer-group-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #666666;
+    padding-left: 2px;
+    white-space: nowrap;
+}
+
+.ql-placer-row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: wrap;
+    background: #0d0d0d;
+    padding: 2px;
+    border-radius: 8px;
+    border: 1px solid #1f1f1f;
+}
+
+.ql-placer-toolbar-sep {
+    width: 1px;
+    align-self: stretch;
+    background-color: #2a2a2a;
+    margin: 0 6px;
+    flex-shrink: 0;
+    min-height: 28px;
+}
+
+/* ============================================================================
+   6. SLIDER CONTROLS
+   ============================================================================ */
+.ql-placer-slider-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    min-width: 0;
+}
+
+.ql-placer-slider-wrap label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #888888;
+    min-width: 22px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.ql-placer-slider-wrap input[type="range"] {
+    flex: 1 1 0%; 
+    min-width: 0; 
+    width: 100%;
+    accent-color: #3897f0;
+    cursor: pointer;
+    margin: 0;
+}
+
+.ql-placer-slider-wrap span {
+    font-size: 9px;
+    color: #aaaaaa;
+    min-width: 32px; 
+    text-align: right;
+}
+
+/* ============================================================================
+   7. DRAG-AND-DROP ELEMENTS
+   ============================================================================ */
+.ql-placer-drag-clone {
+    position: fixed;
+    z-index: 1000001;
+    pointer-events: none;
+    border: 2px solid #e74c3c;
+    border-radius: 6px;
+    opacity: 0.55;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.ql-placer-drop-zone {
+    outline: 2px dotted rgba(56, 151, 240, 0.4) !important;
+    outline-offset: -2px !important;
+    min-height: 14px !important;
+    padding: 2px !important;
+    transition: outline-color 0.15s ease, background-color 0.15s ease;
+}
+
+.ql-placer-candidate {
+    outline: 2px dashed #3897f0 !important;
+    outline-offset: 2px !important;
+}
+
+.ql-placer-candidate-hot {
+    outline: 2px solid #e74c3c !important;
+    outline-offset: -2px !important;
+    background: rgba(231, 76, 60, 0.08) !important;
+}
+
+.ql-placer-pos-badge {
+    position: fixed;
+    background-color: #e74c3c;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    z-index: 1000002;
+    pointer-events: none;
+    letter-spacing: 0.04em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ============================================================================
+   8. VISUAL FEEDBACK (SMART TOOLTIPS & HIGHLIGHT)
+   ============================================================================ */
+
+.ql-placer-highlight-active {
+    outline: 2px solid #3897f0 !important;
+    outline-offset: -2px !important;
+    background-color: rgba(56, 151, 240, 0.15) !important;
+    transition: outline 0.2s ease, background-color 0.2s ease !important;
+}
+
+.ql-placer-style-tooltip {
+    position: fixed;
+    z-index: 1000005;
+    background: #111111;
+    border: 1px solid #3897f0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: #a5d6ff;
+    font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 10px;
+    line-height: 1.5;
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transform: translateY(5px) scale(0.95);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.ql-placer-style-tooltip.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.ql-placer-style-tooltip strong {
+    color: #ffffff;
+    display: block;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.ql-placer-style-tooltip span {
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* ============================================================================
+   9. GLOBAL DRAG-STATE
+   ============================================================================ */
+
+body.ql-placer-dragging {
+    cursor: grabbing !important;
+    user-select: none !important;
+}
+
+.ql-placer-hidden-original {
+    display: none !important;
+}
+
+/* ============================================================================
+   10. INTERACTION BAR VISIBILITY GUARANTEE
+   ============================================================================ */
+.ql-interaction {
+    position: relative !important;
+    overflow: visible !important;
+}

@@ -1,0 +1,15 @@
+{
+  "name": "quelora-markdown-parser",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "quelora_markdown_parser_bg.wasm",
+    "quelora_markdown_parser.js",
+    "quelora_markdown_parser.d.ts"
+  ],
+  "main": "quelora_markdown_parser.js",
+  "types": "quelora_markdown_parser.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

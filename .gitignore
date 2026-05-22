@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build output (use `npm run build`; releases go to the CDN)
+dist/
+css/dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/

@@ -1,0 +1,591 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* ========================================================================
+   5. CONTACTOS ACTIVOS (FLOATING TAB)
+   ======================================================================== */
+.ql-floating-contacts {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(100%);
+    width: 80px;
+    max-height: 60vh;
+    background: var(--ql-secondary-color);
+    border: 1px solid var(--ql-light-border-color);
+    border-right: none;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    z-index: var(--z-overlay);
+    transition: transform var(--ql-transition-smooth);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.15);
+}
+
+.ql-floating-contacts.expanded {
+    transform: translateY(-50%) translateX(0);
+}
+
+.ql-floating-contacts__toggle {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-100%, -50%);
+    width: 24px;
+    height: 50px;
+    background: var(--ql-secondary-color);
+    border: 1px solid var(--ql-light-border-color);
+    border-right: none;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--ql-text-color);
+    box-shadow: -2px 0 5px rgba(0,0,0,0.05);
+}
+
+.ql-floating-contacts__toggle .ql-icons-outlined {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.ql-floating-contacts.expanded .ql-floating-contacts__toggle .ql-icons-outlined {
+    transform: rotate(180deg);
+}
+
+.ql-floating-contacts__list {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-xl) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xxxl);
+    scrollbar-width: none;
+}
+.ql-floating-contacts__list::-webkit-scrollbar { display: none; }
+
+
+/* ========================================================================
+   8. MULTIMEDIA EN MENSAJES
+   ======================================================================== */
+
+.ql-chat-msg__bubble--media {
+    padding: 4px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100%;
+}
+
+.ql-chat-media-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    line-height: 0;
+    background-color: rgba(0,0,0,0.05);
+    display: inline-block;
+}
+
+.ql-chat-media-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    max-height: 300px;
+    object-fit: cover;
+    cursor: zoom-in;
+    transition: transform 0.2s;
+}
+
+.ql-chat-media-save-btn {
+    position: absolute;
+    bottom: 8px; right: 8px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 5;
+}
+
+.ql-chat-media-wrapper:hover .ql-chat-media-save-btn { opacity: 1; }
+@media (hover: none) { .ql-chat-media-save-btn { opacity: 1; } }
+
+.ql-chat-msg--audio .ql-chat-msg__bubble {
+    padding: 8px 12px !important;
+    width: 300px;
+    max-width: 100%;
+}
+.ql-chat-msg--audio .ql-audio-container { margin-top: 0 !important; }
+
+/* Lightbox */
+.ql-lightbox-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.95);
+    z-index: var(--z-lightbox);
+    display: flex !important;
+    align-items: center !important; 
+    justify-content: center !important;
+    cursor: zoom-out;
+    animation: qlFadeIn 0.2s ease;
+}
+.ql-lightbox-img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    display: block !important;
+    margin: auto !important; 
+    transform: scale(0.9);
+    animation: qlZoomIn 0.2s forwards;
+    will-change: transform;
+}
+
+.ql-lightbox-close {
+    position: absolute; top: 20px; right: 20px;
+    z-index: 10;
+    background: rgba(0,0,0,0.5);
+    border: none; border-radius: 50%;
+    width: 40px; height: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* ========================================================================
+   9. CHAT HEADS (Burbujas Flotantes)
+   ======================================================================== */
+
+.ql-chat-heads-container {
+    position: fixed;
+    bottom: 90px;
+    right: var(--spacing-display);
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: var(--spacing-xxxl);
+    z-index: var(--z-chat-head);
+    pointer-events: none;
+}
+
+.ql-chat-head {
+    position: relative;
+    width: var(--ql-chat-head-size);
+    height: var(--ql-chat-head-size);
+    pointer-events: auto;
+    transform: scale(0);
+    transition: transform 0.3s var(--ql-bounce);
+    cursor: pointer;
+    will-change: transform;
+}
+
+.ql-chat-head--active { transform: scale(1); }
+
+.ql-chat-head.incoming-call {
+    animation: qlShakeHard 0.5s infinite !important;
+    border: 2px solid var(--ql-error-color) !important;
+    box-shadow: 0 0 20px rgba(255, 59, 48, 0.6) !important;
+    z-index: var(--z-chat-head-active) !important;
+}
+
+.ql-chat-head-inner {
+    width: 100%; height: 100%;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, border 0.2s, box-shadow 0.2s;
+    overflow: visible;
+}
+
+.ql-chat-head:hover .ql-chat-head-inner { transform: scale(1.05); }
+
+.ql-chat-head .ql-profile__list-avatar {
+    border: 2px solid #fff;
+}
+
+.ql-chat-head-badge {
+    position: absolute;
+    top: -10px; right: -10px;
+    background-color: var(--ql-follow-button-color);
+    color: white;
+    font-size: 11px;
+    min-width: 20px; height: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--spacing-xs);
+    border: 1px solid var(--ql-follow-button-border);
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.ql-chat-head-close {
+    position: absolute;
+    top: -8px; left: -8px;
+    width: 24px; height: 24px;
+    background-color: var(--ql-secondary-color);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+    z-index: 5;
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-chat-head:hover .ql-chat-head-close {
+    opacity: 1; transform: scale(1);
+}
+.ql-chat-head-close:hover {
+    background-color: var(--ql-error-color); color: white;
+}
+
+/* ========================================================================
+   10. VIDEO LLAMADAS & PANELES
+   ======================================================================== */
+
+.ql-chat-video-panel {
+    width: 100%;
+    height: 0;
+    position: relative;
+    background-color: var(--ql-bw-background-color);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: none;
+    transition: all 0.3s ease;
+    opacity: 0;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.ql-chat-video-panel.active {
+    height: auto;
+    opacity: 1;
+    display: flex !important;
+    animation: qlSlideDown 0.3s ease;
+    min-height: 250px;
+    max-height: 45vh;
+}
+
+.ql-chat-video-panel--fullscreen {
+    position: absolute !important;
+    top: 0; left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: none !important;
+    z-index: 9999;
+    border-radius: 0;
+}
+
+.ql-chat-video-panel.audio-only-active {
+    height: 150px !important;
+    min-height: 150px !important;
+    max-height: 150px !important;
+    background: linear-gradient(180deg, var(--ql-secondary-color), var(--ql-background-color));
+}
+
+.ql-chat-video-panel.audio-only-active #ql-remote-video,
+.ql-chat-video-panel.audio-only-active #ql-local-video {
+    display: none !important;
+}
+
+.ql-chat-video-panel.audio-only-active #ql-video-fullscreen,
+.ql-chat-video-panel.audio-only-active #ql-video-pip,
+.ql-chat-video-panel.audio-only-active #ql-video-switch {
+    display: none !important;
+}
+
+#ql-remote-video {
+    position: relative;
+    width: 100%; 
+    height: 100%;
+    max-height: 45vh; 
+    object-fit: contain; 
+    background-color: var(--ql-bw-background-color);
+    flex: 1;
+}
+
+.ql-chat-video-panel--fullscreen #ql-remote-video {
+    max-height: none !important;
+    height: 100%;
+}
+
+#ql-local-video {
+    position: absolute;
+    bottom: 20px; right: 20px;
+    width: 90px; height: 140px;
+    background-color: var(--ql-bw-background-color);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    object-fit: cover;
+    z-index: 20;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    display: none;
+    transition: all 0.3s ease;
+    transform: scaleX(-1);
+    opacity: 0;
+}
+
+#ql-local-video.active { display: block; opacity: 1; }
+
+.ql-video-controls {
+    position: absolute;
+    top: 15px; right: 15px;
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-lg);
+    z-index: var(--z-video-controls);
+    pointer-events: auto;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.ql-incoming-call-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--ql-overlay-dark);
+    backdrop-filter: blur(var(--ql-blur-strength));
+    -webkit-backdrop-filter: blur(var(--ql-blur-strength));
+    z-index: var(--z-modal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: qlFadeIn 0.3s ease;
+}
+
+.ql-incoming-call-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xxxl);
+    width: 100%;
+}
+
+.ql-incoming-call-avatar {
+    width: 180px; height: 180px; 
+    margin-bottom: 30px;
+    position: relative;
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+}
+
+.ql-incoming-call-avatar .ql-profile__list-avatar-wrapper,
+.ql-incoming-call-avatar .ql-profile__list-avatar {
+      width: 180px; height: 180px;   
+}
+
+.ql-incoming-call-name {
+    font-size: var(--icon-size-xl);
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+.ql-incoming-call-status {
+    color: var(--ql-medium-gray-color);
+    font-size: var(--font-size-md);
+    margin-bottom: 30px;
+    animation: qlPulseText 2s infinite;
+}
+
+.ql-incoming-call-actions {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.ql-btn-circle {
+    pointer-events: auto;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.ql-btn-circle:active { transform: scale(0.95); }
+.ql-btn-circle .ql-icons-outlined { font-size: 28px; color: white; }
+
+.ql-btn-circle.danger { background-color: var(--ql-error-color, #ff3b30); }
+.ql-btn-circle.success { background-color: var(--ql-success-color, #34c759); }
+.ql-btn-circle.pulse { animation: qlPulseBtn 1.5s infinite; }
+.ql-btn-circle.muted { background-color: var(--ql-error-color) !important; }
+
+.ql-video-controls .ql-btn-circle {
+    width: 40px; height: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.ql-video-controls .ql-btn-circle:hover { transform: scale(1.05); }
+.ql-video-controls .ql-btn-circle .ql-icons-outlined { font-size: var(--icon-size-xl); }
+
+.ql-video-controls .ql-btn-circle.secondary {
+    background-color: var(--ql-overlay-light);
+    backdrop-filter: blur(5px);
+}
+.ql-video-controls .ql-btn-circle.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================================================
+   11. KEYFRAMES & MEDIA QUERIES
+   ======================================================================== */
+
+@keyframes qlFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes qlZoomIn { to { transform: scale(1); } }
+@keyframes qlSlideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes qlPulseBtn {
+    0% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(52, 199, 89, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); }
+}
+@keyframes qlPulseText {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+@keyframes qlShakeHard {
+    0% { transform: translate(1px, 1px) rotate(0deg) scale(1.1); }
+    10% { transform: translate(-1px, -2px) rotate(-2deg) scale(1.15); }
+    20% { transform: translate(-3px, 0px) rotate(2deg) scale(1.15); }
+    30% { transform: translate(3px, 2px) rotate(0deg) scale(1.15); }
+    40% { transform: translate(1px, -1px) rotate(2deg) scale(1.15); }
+    50% { transform: translate(-1px, 2px) rotate(-2deg) scale(1.15); }
+    60% { transform: translate(-3px, 1px) rotate(0deg) scale(1.15); }
+    70% { transform: translate(3px, 1px) rotate(-2deg) scale(1.15); }
+    80% { transform: translate(-1px, -1px) rotate(2deg) scale(1.15); }
+    90% { transform: translate(1px, 2px) rotate(0deg) scale(1.15); }
+    100% { transform: translate(1px, -2px) rotate(-2deg) scale(1.1); }
+}
+@keyframes qlSpin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
+
+@media (max-width: 768px) {
+    .ql-chat-head { width: 50px; height: 50px; }
+}
+
+/* ========================================================================
+   12. QR & HANDSHAKE STYLES
+   ======================================================================== */
+
+.ql-qr-host-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+    gap: 16px;
+    color: var(--ql-primary-text-color);
+}
+
+.ql-qr-canvas-wrapper {
+    background: white;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: var(--ql-shadow);
+    transition: opacity 0.3s;
+}
+
+.ql-qr-info-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: center;
+}
+
+.ql-qr-timer {
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--ql-primary-color);
+    margin-top: 4px;
+}
+
+.ql-qr-status-text {
+    font-size: 12px;
+    color: var(--ql-success-color);
+    height: 16px;
+    margin: 0;
+}
+
+.ql-qr-status-text.pulse { animation: qlPulseText 1.5s infinite; }
+
+.ql-qr-modal-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--ql-light-border-color);
+    background: var(--ql-light-background-color);
+    color: var(--ql-text-color);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.ql-qr-modal-input:focus { border-color: var(--ql-primary-color); }
+
+.ql-qr-rail-icon {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px; height: 46px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.ql-qr-rail-icon:hover { transform: scale(1.05); }
+.ql-qr-control { order: -1; transition: transform 0.2s; }
+
+.ql-hidden { display: none !important; }
+
+@keyframes qlMinimalBlink { 
+    0% { background-color: transparent; } 
+    50% { background-color: rgba(var(--ql-primary-rgb, 0,150,255), 0.2); } 
+    100% { background-color: transparent; } 
+}
+.ql-fc-blink { animation: qlMinimalBlink 1s ease-in-out 3; border-radius: 8px; }
+.ql-fc-unread { 
+    position: absolute; top: -6px; right: -6px; 
+    background: var(--ql-danger-color, #ef4444); color: white; 
+    font-size: 10px; font-weight: bold; min-width: 18px; height: 18px; 
+    border-radius: 9px; display: flex; align-items: center; justify-content: center; z-index: 2;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}

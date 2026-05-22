@@ -1,0 +1,218 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/community.css */
+
+/* ... (El resto del archivo se mantiene igual hasta la sección 12. GIF PICKER) ... */
+
+/* =========================================
+   12. GIF PICKER
+   ========================================= */
+
+#ql-root .ql-gif-picker-btn {
+    cursor: pointer;
+    font-size: var(--icon-size-xxl);
+    color: var(--ql-icon-color);
+    flex-shrink: 0;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.15s ease;
+    user-select: none;
+}
+
+#ql-root .ql-gif-picker-btn:hover {
+    color: var(--ql-primary-color);
+    transform: scale(1.1);
+}
+
+#ql-root .ql-gif-picker-btn:active {
+    transform: scale(0.95);
+}
+
+#ql-root .ql-gif-picker-panel {
+    width: 100%;
+    max-height: 42vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--ql-secondary-color);
+    border-top: 1px solid var(--ql-border-color);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#ql-root .ql-gif-picker-panel__toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-bottom: 1px solid var(--ql-light-border-color);
+    flex-shrink: 0;
+}
+
+#ql-root .ql-gif-search-input {
+    flex: 1;
+    background-color: var(--ql-light-background-color);
+    border: 1px solid var(--ql-border-color);
+    border-radius: 20px;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    color: var(--ql-text-color);
+    outline: none;
+    font-family: var(--ql-font-family-system);
+    transition: border-color 0.2s ease;
+    min-width: 0;
+}
+
+#ql-root .ql-gif-search-input::placeholder {
+    color: var(--ql-placeholder-color);
+}
+
+#ql-root .ql-gif-search-input:focus {
+    border-color: var(--ql-primary-color);
+}
+
+#ql-root .ql-gif-close-btn {
+    background: none;
+    border: none;
+    padding: var(--spacing-xs);
+    cursor: pointer;
+    color: var(--ql-icon-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+#ql-root .ql-gif-close-btn:hover {
+    color: var(--ql-primary-text-color);
+    background-color: var(--ql-dark-background-color);
+}
+
+#ql-root .ql-gif-close-btn .ql-icons-outlined {
+    font-size: var(--icon-size-xl);
+    line-height: 1;
+}
+
+#ql-root .ql-gif-loader {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    flex-shrink: 0;
+}
+
+/* * Masonry Grid Layout 
+ * Elimina 'column-count' y establece un contenedor flex horizontal para alojar 
+ * columnas físicas.
+ */
+#ql-root .ql-gif-grid {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--spacing-sm);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    box-sizing: border-box;
+}
+
+/* Columna individual generada por JS */
+#ql-root .ql-gif-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    flex: 1;
+    min-width: 0;
+}
+
+/* Scrollbar para la grilla padre */
+#ql-root .ql-gif-grid::-webkit-scrollbar {
+    width: 4px;
+}
+
+#ql-root .ql-gif-grid::-webkit-scrollbar-thumb {
+    background-color: var(--ql-border-color);
+    border-radius: 2px;
+}
+
+#ql-root .ql-gif-tile {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    display: block;
+}
+
+#ql-root .ql-gif-tile:hover {
+    transform: scale(1.03);
+    opacity: 0.9;
+}
+
+#ql-root .ql-gif-tile:active {
+    transform: scale(0.97);
+}
+
+#ql-root .ql-gif-tile:focus-visible {
+    outline: 2px solid var(--ql-primary-color);
+    outline-offset: 2px;
+}
+
+#ql-root .ql-gif-tile img {
+    width: 100%;
+    height: auto; /* Restaura la altura automática para Masonry */
+    display: block;
+    border-radius: 6px;
+    background-color: var(--ql-dark-background-color);
+}
+
+#ql-root .ql-gif-empty {
+    width: 100%;
+    text-align: center;
+    color: var(--ql-gray-color);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-display);
+}
+
+#ql-root .ql-gif-chip {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--ql-dark-background-color);
+    border: 1px solid var(--ql-border-color);
+    border-radius: 12px;
+    padding: var(--spacing-xs) var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    color: var(--ql-text-color);
+    user-select: none;
+    max-width: 100%;
+}
+
+#ql-root .ql-gif-chip__remove {
+    color: var(--ql-gray-color);
+    transition: color 0.15s ease;
+}
+
+#ql-root .ql-gif-chip__remove:hover {
+    color: var(--ql-error-color);
+}
+
+#ql-root .gif-container {
+    padding: var(--spacing-xxxl);
+}
+
+#ql-root .gif-container img{
+    max-width: 50%!important;
+}

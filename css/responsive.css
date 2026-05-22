@@ -1,0 +1,66 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/responsive.css */
+@media (min-width: 769px) {
+    #ql-root .ql-comments,
+    #ql-root .ql-likes,
+    #ql-root .ql-community-profile {
+        max-width: 500px;
+        left: unset !important;
+        border-top-left-radius: unset !important;
+        border-top-right-radius: unset !important;
+        box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+        right: 0;
+    }
+    #ql-root .ql-comments .setting-comment,
+    #ql-root .ql-modal .setting-comment {
+        display: initial;
+    }
+    #ql-root .ql-modal {
+        left: unset;
+        right: 0;
+    }
+    #ql-root .ql-community-header::before {
+        position: unset !important;
+        top: unset !important;
+        left: unset !important;
+        transform: unset !important;
+        width: unset !important;
+        height: unset !important;
+        background-color: unset !important;
+        border-radius: unset !important;
+    }
+    #ql-root .drawer {
+        left: unset;
+        right: 0;
+        border-radius: 0;
+        box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.3) !important;
+        width: 500px;
+    }
+    #ql-root .drawer-header::before {
+        position: unset;
+    }
+}
+@media (max-width: 768px) {
+    #ql-root .ql-comments .setting-comment {
+        display: none;
+    }
+    #ql-root .drawer {
+        width: 100%;
+        min-width: none;
+        max-width: none;
+        box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+    #ql-root .ql-comments #ql-send {
+        display: none;
+    }
+    #ql-root .ql-comments .emoji-button {
+        display: none !important;
+    }
+}

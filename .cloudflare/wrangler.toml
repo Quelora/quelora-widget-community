@@ -1,0 +1,23 @@
+# Cloudflare Worker — Quelora CDN Guard
+# Fill in the placeholder values after creating the Cloudflare resources.
+# See .ai/cdn-release.md for step-by-step setup instructions.
+
+name            = "quelora-cdn-guard"
+main            = "cdn-guard.js"
+compatibility_date = "2024-09-23"
+
+# Custom domain: cdn.quelora.com must be proxied through Cloudflare DNS (orange cloud).
+routes = [
+  { pattern = "cdn.quelora.com/*", zone_name = "quelora.com" }
+]
+
+# R2 bucket — stores all versioned widget files.
+[[r2_buckets]]
+binding     = "CDN_BUCKET"
+bucket_name = "quelora-cdn"            # Change if you named the bucket differently
+
+# KV namespace — allowlist of authorized enterprise client domains.
+# Key = client hostname (e.g. "myclient.com"), Value = any truthy string (e.g. "1").
+[[kv_namespaces]]
+binding = "ALLOWED_DOMAINS"
+id      = "PLACEHOLDER_KV_NAMESPACE_ID"   # Replace after running: wrangler kv namespace create ALLOWED_DOMAINS

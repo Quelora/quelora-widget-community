@@ -1,0 +1,15 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/quelora.css */
+@import url('chat/chat.core.css');
+@import url('chat/chat.features.css');
+@import url('chat/chat.groups.css');
+@import url('chat/chat.thread.css');
+@import url('chat/chat.search.css');
+@import url('chat/chat.blocked.css');

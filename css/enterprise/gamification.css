@@ -1,0 +1,754 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: gamification.css */
+:root {
+    --ql-gamification-bg: var(--ql-background-color);
+    --ql-gamification-surface: var(--ql-secondary-color);
+    --ql-gamification-text: var(--ql-text-color);
+    --ql-gamification-text-muted: var(--ql-light-gray-color);
+    --ql-gamification-primary: var(--ql-primary-color);
+    --ql-gamification-border: var(--ql-border-color);
+    --ql-gamification-gold: #FFD700;
+    --ql-gamification-gold-text: #000;
+    --ql-gamification-success: #2ecc71;
+    --ql-gamification-drawer-width: 85vw;
+    --ql-gamification-drawer-max-width: 480px;
+    --ql-gamification-z-drawer: 9050;
+    --ql-gamification-z-overlay: 9049;
+    --ql-gamification-z-toast: 9999;
+    --ql-gamification-z-external: 900;
+    --ql-gamification-spacing: 16px;
+    --ql-gamification-spacing-sm: 10px;
+    --ql-gamification-radius: 14px;
+    --ql-gamification-transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#ql-theme-root[data-theme="light"] {
+    --ql-gamification-gold: var(--ql-gold-color, #FFD700);
+}
+
+.ql-gamification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--ql-gamification-z-drawer);
+    display: flex;
+    flex-direction: column;
+    width: var(--ql-gamification-drawer-width);
+    height: 100%;
+    max-width: var(--ql-gamification-drawer-max-width);
+    background-color: var(--ql-gamification-bg);
+    color: var(--ql-gamification-text);
+    font-family: var(--ql-font-family-system);
+    border-right: 1px solid var(--ql-gamification-border);
+    transform: translateX(-100%);
+    transition: var(--ql-gamification-transition);
+    will-change: transform;
+    touch-action: none;
+    overscroll-behavior: none;
+}
+
+.ql-gamification--no-transition {
+    transition: none !important;
+}
+
+.ql-gamification__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--ql-gamification-z-overlay);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    touch-action: none;
+}
+
+.ql-gamification__overlay--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ql-gamification__fixed-header {
+    position: relative;
+    z-index: 60;
+    flex-shrink: 0;
+    padding: var(--ql-gamification-spacing);
+    padding-bottom: 0;
+    background-color: var(--ql-gamification-surface);
+    border-bottom: 1px solid var(--ql-gamification-border);
+}
+
+.ql-gamification__category-bar {
+    position: relative;
+    z-index: 55;
+    flex-shrink: 0;
+    display: flex;
+    gap: 8px;
+    padding: 12px var(--ql-gamification-spacing);
+    background: var(--ql-gamification-surface);
+    overflow-x: auto;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+.ql-gamification__category-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.ql-gamification__content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--ql-gamification-spacing);
+    padding-top: 10px;
+    padding-bottom: 80px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+}
+
+.ql-gamification__loader-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.ql-gamification__loader {
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--ql-gamification-surface);
+    border-top-color: var(--ql-gamification-primary);
+    border-radius: 50%;
+    animation: ql-gamification-spin 0.9s linear infinite;
+}
+
+.ql-gamification__card--header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 0;
+    padding-bottom: 16px;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.ql-gamification__avatar-container {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    margin-right: 4px;
+}
+
+.ql-gamification__avatar {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--ql-gamification-bg);
+    border: 2px solid var(--ql-gamification-bg);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--ql-gamification-text-muted);
+}
+
+.ql-gamification__avatar-frame {
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    z-index: 10;
+    width: 130%;
+    height: 130%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+}
+
+.ql-gamification__avatar--squared,
+.ql-gamification__avatar-frame--squared {
+    border-radius: 8px !important;
+}
+
+.ql-gamification__user-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.ql-gamification__username {
+    margin-bottom: 4px;
+    font-size: var(--font-size-lg);
+    font-weight: 800;
+    color: var(--ql-gamification-text);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ql-gamification__level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: var(--ql-gamification-bg);
+    border: 1px solid var(--ql-gamification-border);
+    border-radius: 10px;
+    color: var(--ql-gamification-primary);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.ql-gamification__wallet-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid var(--ql-gamification-gold);
+    border-radius: 14px;
+    color: var(--ql-gamification-text);
+    font-weight: 800;
+    font-size: var(--font-size-sm);
+}
+
+.ql-gamification__xp-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--ql-gamification-bg);
+    overflow: hidden;
+}
+
+.ql-gamification__xp-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--ql-gamification-primary);
+    transition: width 0.5s ease;
+}
+
+.ql-gamification__xp-text {
+    position: absolute;
+    right: 4px;
+    bottom: 6px;
+    font-size: 9px;
+    font-weight: bold;
+    color: var(--ql-gamification-text-muted);
+}
+
+.ql-gamification__tabs-container {
+    display: flex;
+    background: var(--ql-gamification-surface);
+}
+
+.ql-gamification__tab {
+    flex: 1;
+    padding: 12px 0;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ql-gamification-text-muted);
+    transition: all 0.2s ease;
+}
+
+.ql-gamification__tab--active {
+    color: var(--ql-gamification-primary);
+    background: linear-gradient(to top, rgba(127, 127, 127, 0.05) 0%, transparent 100%);
+    border-bottom-color: var(--ql-gamification-primary);
+    font-weight: 800;
+}
+
+.ql-gamification__chip {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    background: var(--ql-gamification-bg);
+    border: 1px solid var(--ql-gamification-border);
+    border-radius: 16px;
+    color: var(--ql-gamification-text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ql-gamification__chip--active {
+    background: var(--ql-gamification-primary);
+    color: #fff;
+    border-color: var(--ql-gamification-primary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.ql-gamification__card {
+    padding: 10px;
+    margin-top: 10px;
+    background: var(--ql-gamification-surface);
+    border-radius: var(--ql-gamification-radius);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.ql-gamification__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding-bottom: 20px;
+    z-index: 1;
+}
+
+.ql-gamification__item-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    background: var(--ql-gamification-surface);
+    border: 1px solid var(--ql-gamification-border);
+    border-radius: 12px;
+}
+
+.ql-gamification__item-card--equipped {
+    border-color: var(--ql-gamification-gold);
+    box-shadow: inset 0 0 0 1px var(--ql-gamification-gold);
+}
+
+.ql-gamification__item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    margin-bottom: 8px;
+    font-size: 32px;
+}
+
+.ql-gamification__item-img {
+    max-width: 100%;
+    max-height: 36px;
+    object-fit: contain;
+}
+
+/*
+ * Lazy-load placeholder state.
+ *
+ * Applied to every <img data-src="..."> before the IntersectionObserver
+ * resolves it. Renders as an animated shimmer that matches the natural
+ * dimensions of the resolved image so the card layout never reflows.
+ * The class is removed by the observer callback once `src` is set.
+ */
+.ql-gamification__item-img--lazy {
+    display: block;
+    width: 100%;
+    max-height: 36px;
+    background: linear-gradient(
+        90deg,
+        rgba(128, 128, 128, 0.10) 0%,
+        rgba(128, 128, 128, 0.22) 50%,
+        rgba(128, 128, 128, 0.10) 100%
+    );
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: ql-gamification-img-shimmer 1.4s ease-in-out infinite;
+}
+
+.ql-gamification__item-name {
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.ql-gamification__item-type {
+    margin-bottom: 8px;
+    padding: 2px 6px;
+    background: var(--ql-gamification-bg);
+    border-radius: 6px;
+    color: var(--ql-gamification-text-muted);
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+.ql-gamification__item-price {
+    margin-top: auto;
+    margin-bottom: 8px;
+    color: var(--ql-gamification-gold);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.ql-gamification__badge-qty {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 2px 6px;
+    background: var(--ql-gamification-border);
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.ql-gamification__btn {
+    width: 100%;
+    padding: 6px;
+    border: none;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.ql-gamification__btn--buy { background: var(--ql-gamification-primary); color: white; }
+.ql-gamification__btn--equip { background: var(--ql-gamification-bg); border: 1px solid var(--ql-gamification-border); color: var(--ql-gamification-text); }
+.ql-gamification__btn--equip-active { background: var(--ql-gamification-gold); color: #000; border-color: var(--ql-gamification-gold); }
+.ql-gamification__btn--use { background: var(--ql-gamification-success); color: white; }
+
+.ql-gamification__section-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+    color: var(--ql-gamification-text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.ql-gamification__streak-card {
+    margin-bottom: 16px;
+    padding: 2px;
+    background: linear-gradient(90deg, #FF4D4D 0%, #F9CB28 100%);
+    border-radius: 14px;
+}
+
+.ql-gamification__streak-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--ql-gamification-surface);
+    border-radius: 12px;
+}
+
+.ql-gamification__streak-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.ql-gamification__fire-icon {
+    font-size: 20px;
+    animation: ql-gamification-pulse 2s infinite;
+}
+
+.ql-gamification__streak-days {
+    display: flex;
+    gap: 4px;
+}
+
+.ql-gamification__day-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--ql-gamification-border);
+    border-radius: 50%;
+}
+
+.ql-gamification__day-dot--active {
+    background-color: #FF4D4D;
+    box-shadow: 0 0 4px #FF4D4D;
+}
+
+.ql-gamification__challenge-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--ql-gamification-border);
+}
+
+.ql-gamification__challenge-item:last-child { border-bottom: none; }
+
+.ql-gamification__challenge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--ql-gamification-bg);
+    border-radius: 8px;
+    color: var(--ql-gamification-primary);
+    font-size: 16px;
+}
+
+.ql-gamification__challenge-info { flex: 1; }
+.ql-gamification__challenge-title { font-size: 12px; font-weight: 600; line-height: 1.2; }
+.ql-gamification__challenge-reward { font-size: 10px; color: var(--ql-gamification-success); font-weight: 700; }
+
+.ql-gamification__btn--claim {
+    padding: 4px 10px;
+    background: var(--ql-gamification-primary);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.ql-gamification__leaderboard-list { display: flex; flex-direction: column; gap: 6px; }
+
+.ql-gamification__lb-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background: var(--ql-gamification-bg);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.ql-gamification__lb-item--me {
+    background: rgba(255, 215, 0, 0.05);
+    border-color: var(--ql-gamification-gold);
+    font-weight: bold;
+}
+
+.ql-gamification__lb-rank { width: 24px; text-align: center; font-weight: 800; font-size: 13px; margin-right: 8px; }
+.ql-gamification__lb-avatar { width: 28px; height: 28px; margin-right: 10px; background-size: cover; background-color: #ccc; border-radius: 50%; }
+.ql-gamification__lb-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ql-gamification__lb-points { color: var(--ql-gamification-primary); font-size: 11px; font-family: monospace; font-weight: 700; }
+.ql-gamification__lb-divider { text-align: center; letter-spacing: 4px; color: var(--ql-gamification-text-muted); font-size: 8px; }
+
+.ql-gamification__stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+
+.ql-gamification__stat-compact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background: var(--ql-gamification-surface);
+    border: 1px solid var(--ql-gamification-border);
+    border-radius: 12px;
+}
+
+.ql-gamification__stat-value { margin-bottom: 4px; color: var(--ql-gamification-text); font-weight: 800; font-size: 18px; }
+.ql-gamification__stat-label { color: var(--ql-gamification-text-muted); font-size: 10px; font-weight: 600; text-transform: uppercase; }
+
+.ql-gamification__confirm-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+}
+
+.ql-gamification__confirm-overlay--active { opacity: 1; visibility: visible; }
+
+.ql-gamification__confirm-card {
+    width: 85%;
+    padding: 20px;
+    background: var(--ql-gamification-surface);
+    border: 1px solid var(--ql-gamification-border);
+    border-radius: 16px;
+    text-align: center;
+}
+
+.ql-gamification__confirm-title { margin-bottom: 10px; font-weight: 800; font-size: var(--font-size-md); }
+.ql-gamification__confirm-msg { margin-bottom: 20px; color: var(--ql-gamification-text-muted); font-size: var(--font-size-sm); }
+.ql-gamification__confirm-actions { display: flex; gap: 10px; }
+.ql-gamification__btn--cancel { flex: 1; padding: 10px; background: transparent; border: 1px solid var(--ql-gamification-border); color: var(--ql-gamification-text); }
+.ql-gamification__btn--confirm { flex: 1; padding: 10px; background: var(--ql-gamification-primary); border: none; color: white; }
+
+.ql-gamification-toasts {
+    position: fixed;
+    bottom: calc(80px + env(safe-area-inset-bottom));
+    right: 16px;
+    z-index: var(--ql-gamification-z-toast);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.ql-gamification-toasts__pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 220px;
+    padding: 8px 16px 8px 10px;
+    color: var(--ql-gamification-text);
+    background: var(--ql-gamification-surface);
+    border: 1px solid var(--ql-gamification-border);
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    pointer-events: auto;
+    transform: translateX(120%);
+    animation: ql-gamification-slide-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.ql-gamification-toasts__pill--hiding { animation: ql-gamification-slide-out 0.3s ease-in forwards; }
+.ql-gamification-toasts__icon { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: rgba(var(--ql-primary-color), 0.1); border-radius: 50%; font-size: 14px; }
+.ql-gamification-toasts__text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.ql-gamification-mini-stats {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 4px 4px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+}
+
+.ql-gamification-mini-stats__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    pointer-events: auto;
+}
+
+.ql-gamification-mini-stats__badge + .ql-gamification-mini-stats__badge { position: relative; margin-left: 0; }
+.ql-gamification-mini-stats__badge--level { color: #ff6b4a; }
+.ql-gamification-mini-stats__badge--streak { color: #ff6b4a; background: rgba(255, 87, 51, 0.15); }
+
+.ql-gamification-mini-stats__btn {
+    position: relative;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin-left: auto;
+    background: linear-gradient(135deg, #FF5733, #FFC300);
+    border: 1px solid #fff;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.ql-gamification-mini-stats__btn:hover { transform: scale(1.1); }
+.ql-gamification-mini-stats__btn:active { transform: scale(0.95); }
+
+.ql-gamification-mini-stats__skeleton {
+    flex: 1;
+    height: 22px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
+    border-radius: 999px;
+    animation: ql-gamification-skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+.ql-gamification-external-frame {
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    z-index: var(--ql-gamification-z-external);
+    width: 130%;
+    height: 130%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+}
+
+.ql-gamification__btn--preview {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: var(--ql-gamification-bg);
+    border: 1px solid var(--ql-gamification-border);
+    border-radius: 6px;
+    color: var(--ql-gamification-text-muted);
+    font-size: 16px;
+    opacity: 1;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.ql-gamification__btn--preview:hover {
+    color: var(--ql-gamification-primary);
+    border-color: var(--ql-gamification-primary);
+}
+
+@keyframes ql-gamification-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+@keyframes ql-gamification-slide-in { 0% { transform: translateX(120%); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+@keyframes ql-gamification-slide-out { 0% { transform: translateX(0); opacity: 1; } 100% { transform: translateX(120%); opacity: 0; } }
+@keyframes ql-gamification-skeleton-pulse { 0% { opacity: 0.6; } 50% { opacity: 0.3; } 100% { opacity: 0.6; } }
+@keyframes ql-gamification-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/*
+ * Shimmer keyframe for lazy-load image placeholders.
+ * Moves the gradient horizontally to produce a sweep effect while
+ * the browser waits for the IntersectionObserver to resolve the src.
+ */
+@keyframes ql-gamification-img-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

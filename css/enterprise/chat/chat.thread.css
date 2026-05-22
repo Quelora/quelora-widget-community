@@ -1,0 +1,567 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* ========================================================================
+   4. VISTA DE CONVERSACIÓN (CHAT VIEW)
+   ======================================================================== */
+
+.ql-chat-view {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--ql-secondary-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.ql-chat-view__header-custom {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-md);
+    border-bottom: 1px solid var(--ql-light-border-color);
+    background-color: var(--ql-secondary-color);
+    gap: var(--spacing-md);
+    height: var(--ql-header-height);
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.ql-chat-view__messages.blurred-thread,
+.ql-chat-view__header-custom.blurred-thread {
+    filter: blur(4px);
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}
+
+.ql-chat-view__back {
+    background: none;
+    border: none;
+    color: var(--ql-primary-color);
+    cursor: pointer;
+    padding: var(--spacing-lg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ql-chat-view__back:hover { background-color: var(--ql-light-background-color); }
+
+.ql-chat-view__info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xxl);
+    margin-left: var(--spacing-lg);
+    min-width: 0;
+    height: 100%;
+}
+
+.ql-chat-view__avatar-wrapper {
+    width: var(--ql-avatar-size-header);
+    height: var(--ql-avatar-size-header);
+    flex-shrink: 0;
+    position: relative;
+    overflow: visible;
+}
+
+.ql-chat-view__avatar-wrapper .ql-profile__list-avatar-wrapper,
+.ql-chat-view__avatar-wrapper .ql-profile__list-avatar {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+}
+.ql-chat-view__avatar-wrapper .ql-profile__list-avatar {
+    font-size: var(--icon-size-sm) !important;
+}
+
+.ql-chat-view__text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    line-height: 1.3;
+}
+
+.ql-chat-view__name {
+    font-weight: 700;
+    font-size: var(--font-size-md);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--ql-primary-text-color);
+    display: block;
+}
+
+.ql-chat-view__online-status {
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+.ql-chat-view__online-status::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background-color: var(--ql-medium-gray-color);
+    transition: background-color 0.3s;
+}
+.ql-chat-view__online-status.online { color: var(--ql-success-color); }
+.ql-chat-view__online-status.online::before {
+    background-color: var(--ql-success-color);
+    box-shadow: 0 0 4px rgba(52, 199, 89, 0.4);
+}
+.ql-chat-view__online-status.offline { color: var(--ql-medium-gray-color); }
+
+.ql-chat-view__status {
+    font-size: 11px;
+    color: var(--ql-medium-gray-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    min-height: 14px;
+}
+
+.ql-chat-view__status.typing {
+    color: var(--ql-primary-color);
+    font-weight: 600;
+    font-style: italic;
+}
+
+.ql-chat-view__action-btn,
+.ql-chat-dropdown-trigger {
+    background: none;
+    border: none;
+    color: var(--ql-text-color);
+    cursor: pointer;
+    padding: var(--spacing-lg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.ql-chat-view__action-btn:hover,
+.ql-chat-dropdown-trigger:hover {
+    background-color: var(--ql-light-background-color);
+}
+
+.ql-chat-view__action-btn .ql-icons-outlined { font-size: var(--icon-size-xxl); }
+
+.ql-chat-header-actions {
+    position: relative;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.ql-chat-dropdown-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: var(--ql-light-background-color);
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 12px;
+    box-shadow: var(--ql-shadow);
+    width: 280px;
+    display: none;
+    z-index: var(--z-dropdown);
+    overflow: hidden;
+    animation: qlFadeIn 0.15s ease-out;
+    padding: var(--spacing-xs) 0;
+}
+
+.ql-chat-dropdown-menu.active { display: block; }
+
+.ql-chat-dropdown-item {
+    padding: var(--spacing-xxl) 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xxl);
+    font-size: var(--font-size-md);
+    color: var(--ql-text-color);
+    transition: background 0.1s;
+}
+
+.ql-chat-dropdown-item:hover { background: var(--ql-secondary-color); }
+
+.ql-chat-dropdown-item .ql-icons-outlined {
+    font-size: var(--icon-size-lg);
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-chat-dropdown-item.danger,
+.ql-chat-dropdown-item.danger .ql-icons-outlined { color: var(--ql-error-color); }
+
+
+/* ========================================================================
+   6. ÁREA DE MENSAJES
+   ======================================================================== */
+
+.ql-chat-view__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+    padding-bottom: max(var(--spacing-md), var(--ql-safe-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    background-color: var(--ql-background-color);
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+}
+
+.ql-chat-e2ee-notice,
+.ql-chat-offline-notice,
+.ql-chat-system-message {
+    align-self: center;
+    border-radius: var(--spacing-lg);
+    padding: var(--spacing-lg) 16px;
+    margin: 16px var(--spacing-display);
+    max-width: 85%;
+    text-align: center;
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.ql-chat-e2ee-notice {
+    background-color: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: var(--ql-gold-color);
+}
+
+.ql-chat-offline-notice {
+    background-color: rgba(31, 168, 245, 0.08);
+    border: 1px solid rgba(31, 168, 245, 0.2);
+    color: var(--ql-primary-color);
+    animation: qlFadeInMsg 0.3s ease-out;
+}
+
+.ql-chat-system-message {
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-medium-gray-color);
+    border: 1px solid var(--ql-light-border-color);
+    flex-direction: row;
+    margin: var(--spacing-lg) 0;
+}
+
+.ql-chat-msg {
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--spacing-xxs);
+    animation: qlFadeInMsg 0.2s ease-out;
+    will-change: transform, opacity;
+}
+
+@keyframes qlFadeInMsg {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ql-chat-msg--own { align-self: flex-end; align-items: flex-end; }
+.ql-chat-msg--their { align-self: flex-start; align-items: flex-start; }
+
+.ql-chat-msg__bubble {
+    padding: var(--spacing-lg) var(--spacing-xxl);
+    border-radius: 18px;
+    position: relative;
+    word-wrap: break-word;
+    font-size: var(--font-size-md);
+    line-height: 1.4;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+
+.ql-chat-msg--own .ql-chat-msg__bubble {
+    background-color: var(--ql-level-2-color) !important; 
+    border: 1px solid var(--ql-border-color);
+    color: var(--ql-primary-text-color);
+    border-bottom-right-radius: 4px;
+}
+
+.ql-chat-msg--their .ql-chat-msg__bubble {
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-text-color);
+    border: 1px solid var(--ql-light-border-color);
+    border-bottom-left-radius: 4px;
+}
+
+.ql-chat-msg__text p { margin: 0; }
+
+.ql-chat-msg__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-xxs);
+    padding: 0 var(--spacing-xxs);
+    opacity: 0.7;
+}
+
+.ql-chat-msg__time { font-size: var(--font-size-xxs); }
+
+.ql-chat-status {
+    font-size: 18px !important; 
+    width: 18px !important;
+    height: 18px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ql-light-gray-color); 
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    margin-left: 4px;
+}
+
+.ql-chat-status .ql-icons-outlined {
+    font-size: 13px !important;
+    width: 100%; height: 100%;
+}
+
+.ql-chat-status:not([class*="--"]) {
+    color: var(--ql-gray-color);
+    opacity: 0.6;
+}
+
+.ql-chat-status--read { 
+    color: var(--ql-color) !important; 
+    opacity: 1;
+    filter: drop-shadow(0 0 2px rgba(27, 203, 252, 0.5)); 
+}
+
+.ql-chat-status--cloud {
+    color: var(--ql-medium-gray-color);
+    animation: qlPulseOpacity 2s infinite;
+}
+
+.ql-chat-status--delivered {
+    color: #ffffff !important; 
+    opacity: 1;
+}
+
+.ql-chat-status--failed {
+    color: var(--ql-error-color) !important;
+}
+
+@keyframes qlPulseOpacity {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.9; }
+}
+
+.ql-chat-date-divider {
+    text-align: center;
+    margin: var(--spacing-xxxl) 0;
+    font-size: 11px;
+    color: var(--ql-medium-gray-color);
+    display: flex;
+    justify-content: center;
+}
+
+.ql-chat-date-divider span {
+    background-color: rgba(0,0,0,0.1);
+    padding: var(--spacing-xs) var(--spacing-xl);
+    border-radius: 10px;
+}
+
+.ql-chat-typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-lg) 16px;
+    gap: var(--spacing-xs);
+    background: var(--ql-light-background-color);
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    width: fit-content;
+    margin-bottom: var(--spacing-lg);
+}
+
+.ql-chat-typing-dots { display: flex; gap: 3px; }
+.ql-chat-typing-dots span {
+    width: 5px; height: 5px;
+    background-color: var(--ql-medium-gray-color);
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite;
+}
+.ql-chat-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.ql-chat-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-4px); }
+}
+
+/* ========================================================================
+   7. ÁREA DE INPUT & ARCHIVOS
+   ======================================================================== */
+
+.ql-chat-view__input-area {
+    width: 100%;
+    background-color: var(--ql-secondary-color);
+    border-top: 1px solid var(--ql-light-border-color);
+    padding: var(--spacing-md);
+    padding-bottom: max(var(--spacing-md), var(--ql-safe-bottom, 0px));
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    flex-shrink: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.ql-chat-actions-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 4px;
+}
+
+.ql-chat-action-btn {
+    background: none;
+    border: none;
+    color: var(--ql-medium-gray-color);
+    cursor: pointer;
+    width: 36px; height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.ql-chat-action-btn:hover {
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-primary-color);
+}
+
+#ql-root .ql-chat-input-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: var(--ql-light-background-color);
+    border: 1px solid var(--ql-light-border-color);
+    min-height: 40px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#ql-root .ql-chat-input-wrapper:focus-within {
+    border-color: var(--ql-primary-color);
+    box-shadow: 0 0 0 2px rgba(31, 168, 245, 0.1);
+}
+
+.ql-chat-attachment-bar {
+    display: none;
+    padding: 8px;
+    gap: 8px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--ql-light-border-color);
+}
+.ql-chat-attachment-bar.active { display: flex; }
+
+.ql-chat-attachment-thumb {
+    width: 60px; height: 60px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    flex-shrink: 0;
+    background-color: var(--ql-background-color);
+    border: 1px solid var(--ql-light-border-color);
+}
+
+.ql-chat-attachment-remove {
+    position: absolute;
+    top: -6px; right: -6px;
+    width: 20px; height: 20px;
+    background-color: var(--ql-secondary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-chat-attachment-remove:hover { color: var(--ql-error-color); }
+
+#ql-root .ql-chat-input-wrapper .ql-comment-input {
+    flex: 1;
+    max-height: 120px;
+    overflow-y: auto;
+    padding: 10px 12px;
+    font-size: var(--font-size-md);
+    color: var(--ql-text-color);
+    outline: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border: none;
+    background: transparent;
+    min-height: 20px;
+    line-height: 1.4;
+    resize: none;
+}
+
+#ql-root .ql-chat-input-wrapper .ql-comment-input[contenteditable]:empty:before {
+    content: attr(placeholder);
+    color: var(--ql-placeholder-color);
+    pointer-events: none;
+    display: block;
+    opacity: 0.7;
+    position: absolute;
+}
+
+.ql-chat-input-wrapper .progress-bar {
+    position: absolute;
+    bottom: -1px !important;
+    left: 0 !important; right: 0;
+    height: 2px;
+    background-color: var(--ql-success-color);
+    width: 0%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 1px;
+    pointer-events: none;
+}
+
+.ql-chat-view__send {
+    background: var(--ql-primary-color);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 40px; height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    border-radius: 50%;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.ql-chat-view__send:hover {
+    background-color: var(--ql-active-icon-color);
+    transform: scale(1.05);
+}
+
+.ql-chat-view__send.recording {
+    background-color: var(--ql-error-color);
+    animation: qlPulseBtn 1.5s infinite;
+}

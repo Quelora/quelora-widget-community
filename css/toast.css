@@ -1,0 +1,202 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/toast.css */
+#ql-root {
+    --toast-width: 450px;
+    --toast-avatar-size: 38px;
+    --toast-bg: var(--ql-bw-background-color); 
+    --toast-text-title: var(--ql-primary-text-color);
+    --toast-text-body: var(--ql-text-color);
+    --toast-border: var(--ql-border-color);
+    --toast-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 15px rgba(255, 255, 255, 0.05),
+        0 10px 40px rgba(0, 0, 0, 0.8);
+    --color-success: var(--ql-success-color);
+    --color-error: var(--ql-error-color);
+    --color-warning: var(--ql-warning-color);
+    --color-info: var(--ql-color);
+}
+
+#ql-theme-root[data-theme="light"] {
+    --toast-shadow: 
+        0 12px 24px -6px rgba(0, 0, 0, 0.25),
+        0 4px 8px -4px rgba(0, 0, 0, 0.15);
+    --toast-border: rgba(0, 0, 0, 0.08);
+}
+
+#ql-root .ql-toast-container {
+    position: fixed;
+    right: var(--spacing-display, 20px);
+    width: 100%;
+    max-width: var(--toast-width);
+    z-index: 10000;
+    display: flex;
+    gap: var(--spacing-xl);
+    pointer-events: none;
+}
+
+#ql-root .ql-toast-container.ql-toast-top {
+    top: var(--spacing-display, 20px);
+    bottom: auto;
+    flex-direction: column;
+}
+
+#ql-root .ql-toast-container.ql-toast-bottom {
+    top: auto;
+    bottom: 80px;
+    flex-direction: column-reverse;
+}
+
+#ql-root .ql-toast {
+    position: relative;
+    pointer-events: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
+    background-color: var(--toast-bg);
+    border: 1px solid var(--toast-border);
+    border-radius: var(--ql-toast-border-radius, 12px);
+    box-shadow: var(--toast-shadow);
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.35s cubic-bezier(0.21, 1.02, 0.32, 1);
+}
+
+#ql-root .ql-toast.ql-toast-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#ql-root .ql-toast .ql-avatar-frame {
+    flex-shrink: 0;
+    width: var(--toast-avatar-size);
+    height: var(--toast-avatar-size);
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--ql-secondary-color);
+    border: var(--avatar-small-border-width) solid var(--avatar-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ql-root .ql-toast .ql-avatar-img,
+#ql-root .ql-toast .ql-avatar-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#ql-root .ql-toast .ql-icons-outlined {
+    font-size: 20px;
+    color: var(--ql-icon-color);
+}
+
+#ql-root .ql-toast-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 2px;
+}
+
+#ql-root .ql-toast-title {
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xs);
+    color: var(--toast-text-title);
+}
+
+#ql-root .ql-toast-body {
+    font-size: var(--font-size-md);
+    color: var(--toast-text-body);
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+#ql-root .ql-toast-link {
+    color: var(--ql-primary-color);
+    text-decoration: none;
+}
+
+#ql-root .ql-toast-link:hover {
+    text-decoration: underline;
+}
+
+#ql-root .ql-toast-buttons {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+#ql-root .ql-toast-button {
+    padding: 6px 12px;
+    border-radius: 18px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--ql-light-border-color);
+    background-color: transparent;
+    color: var(--ql-primary-text-color);
+    transition: background 0.2s;
+}
+
+#ql-root .ql-toast-button:hover {
+    background-color: var(--ql-secondary-color);
+}
+
+#ql-root .ql-toast-close {
+    background: none;
+    border: none;
+    color: var(--ql-icon-color);
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-top: -4px;
+    margin-right: -4px;
+}
+
+#ql-root .ql-toast-close:hover {
+    color: var(--ql-primary-text-color);
+}
+
+.ql-toast-success,
+.ql-toast-error,
+.ql-toast-warning,
+.ql-toast-info {
+    border-left: 4px solid transparent;
+}
+
+#ql-root .ql-toast-success { border-left-color: var(--color-success); }
+#ql-root .ql-toast-error   { border-left-color: var(--color-error); }
+#ql-root .ql-toast-warning { border-left-color: var(--color-warning); }
+#ql-root .ql-toast-info    { border-left-color: var(--color-info); }
+
+#ql-root .ql-toast-success .ql-icons-outlined { color: var(--color-success); }
+#ql-root .ql-toast-error .ql-icons-outlined   { color: var(--color-error); }
+#ql-root .ql-toast-warning .ql-icons-outlined { color: var(--color-warning); }
+#ql-root .ql-toast-info .ql-icons-outlined    { color: var(--color-info); }
+
+@media (max-width: 480px) {
+    #ql-root .ql-toast-container {
+        width: auto;
+        left: 16px;
+        right: 16px;
+        max-width: none;
+    }
+}

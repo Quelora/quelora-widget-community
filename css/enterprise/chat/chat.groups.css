@@ -1,0 +1,1127 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/chat.groups.css */
+
+.ql-group-rail-btn { 
+    order: -2; 
+}
+
+.ql-chat-group-drawer .ql-drawer-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.ql-group-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--ql-background-color);
+    position: relative;
+}
+
+.ql-group-view__header {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-xl) var(--spacing-xxl);
+    background: var(--ql-secondary-color);
+    border-bottom: 1px solid var(--ql-light-border-color);
+    gap: var(--spacing-xl);
+    min-height: 58px;
+    position: relative;
+    z-index: 2;
+}
+
+.ql-group-view__back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-md);
+    border-radius: 50%;
+    color: var(--ql-primary-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.ql-group-view__back:hover {
+    background: var(--ql-light-background-color);
+}
+
+.ql-group-view__info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+    flex: 1;
+    min-width: 0;
+}
+
+.ql-group-view__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ql-primary-color), var(--ql-success-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.ql-group-view__avatar-icon {
+    color: #fff;
+    font-size: 22px;
+}
+
+.ql-group-view__avatar--has-image .ql-group-view__avatar-icon {
+    display: none;
+}
+
+.ql-group-view__meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.ql-group-view__name {
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    color: var(--ql-primary-text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ql-group-view__members-count {
+    font-size: var(--font-size-xs);
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-group-view__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+.ql-group-view__action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-md);
+    border-radius: 50%;
+    color: var(--ql-primary-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.ql-group-view__action-btn:hover {
+    background: var(--ql-light-background-color);
+}
+
+.ql-group-view__dropdown {
+    position: absolute;
+    top: 58px;
+    right: var(--spacing-xxl);
+    background: var(--ql-secondary-color);
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 12px;
+    box-shadow: var(--ql-shadow);
+    z-index: 9010;
+    overflow: hidden;
+    flex-direction: column;
+    min-width: 180px;
+}
+
+.ql-group-dropdown__item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-xl) var(--spacing-display);
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--ql-light-border-color);
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: var(--font-size-md);
+    color: var(--ql-primary-text-color);
+    transition: background 0.15s;
+}
+
+.ql-group-dropdown__item .ql-icons-outlined {
+    display: none;
+}
+
+.ql-group-dropdown__item:last-child {
+    border-bottom: none;
+}
+
+.ql-group-dropdown__item:hover {
+    background: var(--ql-light-background-color);
+}
+
+.ql-group-dropdown__item--danger {
+    color: var(--ql-error-color);
+}
+
+.ql-group-view__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-xxl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.ql-group-msg-v2 {
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    margin-bottom: var(--spacing-lg);
+}
+
+.ql-group-msg-v2--out {
+    justify-content: flex-end;
+}
+
+.ql-group-msg-v2--in {
+    justify-content: flex-start;
+}
+
+.ql-group-msg-v2__avatar-wrapper {
+    margin-right: var(--spacing-lg);
+    flex-shrink: 0;
+    align-self: flex-start;
+    width: 28px;
+    height: 28px;
+}
+
+.ql-group-msg-v2__avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.ql-group-msg-v2__avatar-fallback {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--ql-primary-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.ql-group-msg-v2__bubble {
+    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-lg) var(--spacing-xxl);
+    border-radius: 12px;
+}
+
+.ql-group-msg-v2--out .ql-group-msg-v2__bubble {
+    border-bottom-right-radius: 0;
+    background-color: var(--ql-primary-color);
+    color: #fff;
+}
+
+.ql-group-msg-v2--in .ql-group-msg-v2__bubble {
+    border-bottom-left-radius: 0;
+    background-color: var(--ql-light-background-color);
+    color: var(--ql-text-color);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.ql-group-msg-v2__sender-name {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--ql-primary-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.ql-group-msg-v2__text {
+    font-size: var(--font-size-md);
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+.ql-group-msg-v2__text p{
+    margin: var(--spacing-xs);
+}
+.ql-group-msg-v2__time {
+    font-size: var(--font-size-xxs);
+    opacity: 0.7;
+    margin-top: var(--spacing-xs);
+    align-self: flex-end;
+}
+
+.ql-group-loading,
+.ql-group-empty {
+    text-align: center;
+    color: var(--ql-medium-gray-color);
+    font-size: var(--font-size-md);
+    padding: 32px var(--spacing-xxxl);
+    align-self: center;
+}
+
+.ql-group-modal-layout {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-xl) * 1.8);
+    padding: var(--spacing-xs) 0;
+}
+
+.ql-group-modal__avatar-preview--has-image {
+    border: none;
+}
+
+.ql-group-modal__avatar-overlay .ql-icons-outlined {
+    color: #fff;
+    font-size: 24px;
+}
+
+.ql-group-modal__avatar-hint {
+    font-size: var(--font-size-xs);
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-group-modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.ql-group-modal__label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--ql-medium-gray-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ql-group-modal__input {
+    padding: var(--spacing-xl) var(--spacing-xxl);
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 10px;
+    background: var(--ql-light-background-color);
+    color: var(--ql-primary-text-color);
+    font-size: var(--font-size-md);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.ql-group-modal__input:focus,
+.ql-group-modal__textarea:focus {
+    border-color: var(--ql-primary-color);
+}
+
+.ql-group-modal__textarea {
+    padding: var(--spacing-xl) var(--spacing-xxl);
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 10px;
+    background: var(--ql-light-background-color);
+    color: var(--ql-primary-text-color);
+    font-size: var(--font-size-md);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+    min-height: 60px;
+}
+
+.ql-group-modal__counter-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing-xs);
+}
+
+.ql-group-modal__counter {
+    font-size: 11px;
+    color: var(--ql-medium-gray-color);
+    text-align: right;
+}
+
+.ql-group-modal__contacts {
+    max-height: 260px;
+    overflow-y: auto;
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 10px;
+}
+
+.ql-group-contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-xxl);
+    cursor: pointer;
+    border-bottom: 1px solid var(--ql-light-border-color);
+    transition: background 0.15s, opacity 0.2s;
+}
+
+.ql-group-contact-item:last-child {
+    border-bottom: none;
+}
+
+.ql-group-contact-item:hover {
+    background: var(--ql-light-background-color);
+}
+
+.ql-group-contact-item--selected {
+    background: color-mix(in srgb, var(--ql-primary-color) 8%, transparent);
+}
+
+.ql-group-contact-item--loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.ql-group-contact-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--ql-light-border-color);
+    border-top: 2px solid var(--ql-primary-color);
+    border-radius: 50%;
+    animation: qlSpin 1s linear infinite;
+    margin-left: auto;
+}
+
+.ql-group-contact-item__check {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.ql-group-contact-item__check-icon--on {
+    color: var(--ql-primary-color);
+}
+
+.ql-group-contact-item__check-icon--off {
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-group-contact-item__avatar .ql-profile__list-avatar-wrapper {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.ql-group-contact-item__avatar .ql-profile__list-avatar {
+    font-size: var(--font-size-md) !important;
+}
+
+.ql-group-contact-item__name {
+    font-size: var(--font-size-sm);
+    color: var(--ql-primary-text-color);
+    font-weight: 500;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ql-group-selected-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    padding: 0;
+    border-bottom: 1px solid var(--ql-light-border-color);
+    max-height: 0;
+    overflow: hidden;
+    transition: padding 0.2s, max-height 0.2s;
+}
+
+.ql-group-selected-chips--active {
+    padding: var(--spacing-lg) var(--spacing-xxxl);
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.ql-group-chip {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: var(--ql-light-background-color);
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 20px;
+    padding: var(--spacing-xs) var(--spacing-xl) var(--spacing-xs) var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--ql-primary-text-color);
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.ql-group-chip__avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.ql-group-chip__avatar-fallback {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--ql-primary-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xxs);
+    font-weight: bold;
+}
+
+.ql-group-chip__name {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ql-group-chip__remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    color: var(--ql-primary-color);
+    opacity: 0.7;
+    line-height: 1;
+    margin-left: 2px;
+}
+
+.ql-group-chip__remove:hover {
+    opacity: 1;
+}
+
+.ql-group-chip__remove .ql-icons-outlined {
+    font-size: var(--font-size-md);
+}
+
+.ql-group-contacts-scroll {
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.ql-group-member-item__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.ql-group-member-item__avatar-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--ql-primary-color);
+    background: color-mix(in srgb, var(--ql-primary-color) 12%, transparent);
+    border-radius: 50%;
+}
+
+.ql-group-members-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.ql-group-admin-badge {
+    font-size: var(--font-size-xxs);
+    font-weight: 700;
+    color: #fff;
+    background: var(--ql-gold-color, #FFD700);
+    padding: var(--spacing-xxs) var(--spacing-md);
+    border-radius: 12px;
+    margin-left: var(--spacing-lg);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ql-group-member-item__action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ql-medium-gray-color);
+    padding: var(--spacing-xs);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    transition: background 0.15s, color 0.15s;
+    margin-left: var(--spacing-xs);
+}
+
+.ql-group-member-item__action-btn:hover {
+    background: var(--ql-light-background-color);
+    color: var(--ql-primary-color);
+}
+
+.ql-group-member-item__expel {
+    color: var(--ql-error-color);
+}
+
+.ql-group-member-item__expel:hover {
+    background: color-mix(in srgb, var(--ql-error-color) 12%, transparent);
+    color: var(--ql-error-color);
+}
+
+.ql-group-invite-modal__desc {
+    font-size: var(--font-size-sm);
+    color: var(--ql-medium-gray-color);
+    margin: 0;
+}
+
+.ql-group-invite-modal__link-row {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.ql-group-invite-modal__input {
+    flex: 1;
+    padding: var(--spacing-lg) var(--spacing-xxl);
+    border: 1px solid var(--ql-light-border-color);
+    border-radius: 8px;
+    background: var(--ql-light-background-color);
+    color: var(--ql-medium-gray-color);
+    font-size: var(--font-size-xs);
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ql-group-confirm {
+    padding: var(--spacing-lg) 0;
+}
+
+.ql-group-confirm p {
+    font-size: var(--font-size-md);
+    color: var(--ql-primary-text-color);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.ql-group-modal__search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.ql-group-modal__search-icon {
+    position: absolute;
+    left: var(--spacing-xl);
+    font-size: 18px;
+    color: var(--ql-medium-gray-color);
+    pointer-events: none;
+}
+
+.ql-group-modal__search-wrapper .ql-group-modal__input {
+    padding-left: 36px;
+}
+
+/* ========================================================================
+   Group Information & Drawer UX (WhatsApp Style)
+   ======================================================================== */
+
+.ql-group-info-avatar-wrapper {
+    position: relative;
+    margin-bottom: var(--spacing-xxxl);
+}
+
+.ql-group-info-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--ql-light-background-color);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 4px solid var(--ql-secondary-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.ql-group-info-avatar-placeholder {
+    font-size: 64px;
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-group-info-avatar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 50%;
+}
+
+.ql-group-info-avatar-wrapper:hover .ql-group-info-avatar-overlay {
+    opacity: 1;
+}
+
+.ql-group-info-avatar-overlay span {
+    color: #fff;
+    font-size: 32px;
+}
+
+.ql-group-info-name-edit {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    width: 100%;
+    justify-content: center;
+    padding: 0 var(--spacing-display);
+}
+
+.ql-group-info-name-input {
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--ql-primary-color);
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--ql-primary-text-color);
+    padding: var(--spacing-xs);
+    outline: none;
+    max-width: 80%;
+}
+
+.ql-group-info-add-btn:hover {
+    background: color-mix(in srgb, var(--ql-primary-color) 10%, transparent);
+}
+
+.ql-group-info-members-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ql-group-info-member-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xxl);
+    padding: var(--spacing-xxl) 0;
+    border-bottom: 1px solid var(--ql-light-border-color);
+    cursor: pointer;
+}
+
+.ql-group-info-member-item:last-child {
+    border-bottom: none;
+}
+
+.ql-group-info-danger-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xxxl);
+    padding: var(--spacing-xxxl);
+    background: none;
+    border: none;
+    color: var(--ql-error-color);
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.ql-group-info-danger-btn:hover {
+    background: color-mix(in srgb, var(--ql-error-color) 5%, transparent);
+}
+
+.ql-group-info-danger-btn span.ql-icons-outlined {
+    font-size: 24px;
+}
+
+.ql-bottom-sheet-modal {
+    align-items: flex-end !important;
+}
+
+.ql-bottom-sheet-modal .modal-content {
+    width: 100% !important;
+    max-width: 500px !important;
+    border-radius: 20px 20px 0 0 !important;
+    animation: slideUp 0.3s ease-out;
+}
+
+.ql-group-member-actions-sheet {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-lg) 0;
+}
+
+.ql-group-member-actions-header {
+    padding: var(--spacing-xxxl);
+    border-bottom: 1px solid var(--ql-light-border-color);
+    text-align: center;
+}
+
+.ql-group-member-actions-title {
+    font-weight: 700;
+    color: var(--ql-primary-text-color);
+}
+
+.ql-group-member-action-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xxxl);
+    padding: var(--spacing-xxxl) 24px;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    color: var(--ql-primary-text-color);
+    cursor: pointer;
+}
+
+.ql-group-member-action-btn:hover {
+    background: var(--ql-light-background-color);
+}
+
+.ql-group-member-action-btn.danger {
+    color: var(--ql-error-color);
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.ql-drawer-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+/* ========================================================================
+   Production-ready Group Chat Styles (v2.3.0) - Overrides
+   ======================================================================== */
+
+.ql-group-view__input-area {
+    background: var(--ql-secondary-color);
+    border-top: 1px solid var(--ql-light-border-color);
+    padding: var(--spacing-xl) var(--spacing-xxl);
+    display: flex;
+    align-items: flex-end;
+    gap: var(--spacing-lg);
+    min-height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ql-group-info-layout,
+.ql-group-drawer-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--ql-background-color);
+}
+
+.ql-group-drawer-body {
+    padding: var(--spacing-display);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxxl);
+    overflow-y: auto;
+    flex: 1;
+}
+
+.ql-group-info-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: var(--spacing-display);
+}
+
+.ql-drawer-header-nav {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-xxl) var(--spacing-xxxl);
+    gap: var(--spacing-xxxl);
+    background: var(--ql-bw-background-color);
+    border-bottom: 1px solid var(--ql-light-border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.ql-drawer-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ql-primary-text-color);
+}
+
+.ql-drawer-back-btn {
+    background: none;
+    border: none;
+    color: var(--ql-primary-color);
+    cursor: pointer;
+    padding: var(--spacing-lg);
+    display: flex;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.ql-drawer-back-btn:hover {
+    background: color-mix(in srgb, var(--ql-primary-color) 8%, transparent);
+}
+
+.ql-group-info-header-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px var(--spacing-xxxl);
+    background: var(--ql-bw-background-color);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--ql-light-border-color);
+}
+
+.ql-group-info-name-display {
+    margin: var(--spacing-xxl) 0 var(--spacing-xs) 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ql-primary-text-color);
+}
+
+.ql-group-info-count {
+    font-size: var(--font-size-md);
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-group-info-members-card {
+    background: var(--ql-bw-background-color);
+    margin-bottom: var(--spacing-lg);
+    padding: 0;
+    border-top: 1px solid var(--ql-light-border-color);
+    border-bottom: 1px solid var(--ql-light-border-color);
+}
+
+.ql-group-info-members-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xxl) var(--spacing-xxxl);
+    border-bottom: 1px solid var(--ql-light-border-color);
+}
+
+.ql-group-info-members-title {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--ql-medium-gray-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ql-group-member-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-xl) var(--spacing-xxxl);
+    gap: var(--spacing-xxl);
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-bottom: 1px solid var(--ql-light-border-color);
+    background: var(--ql-bw-background-color);
+}
+
+.ql-group-member-item:last-child {
+    border-bottom: none;
+}
+
+.ql-group-member-item:hover {
+    background: var(--ql-light-background-color);
+}
+
+.ql-group-member-item__avatar {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--ql-light-border-color);
+}
+
+.ql-group-member-item__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.ql-group-member-item__name {
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    color: var(--ql-primary-text-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ql-group-member-item__sub {
+    font-size: var(--font-size-xs);
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-group-member-item__badge {
+    font-size: 11px;
+    padding: var(--spacing-xxs) var(--spacing-lg);
+    background: color-mix(in srgb, var(--ql-color) 10%, transparent);
+    color: var(--ql-primary-color);
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.ql-group-info-actions-card {
+    background: var(--ql-bw-background-color);
+    padding: var(--spacing-xxxl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxl);
+    border-top: 1px solid var(--ql-light-border-color);
+}
+
+.ql-group-action-btn {
+    width: 100%;
+    justify-content: flex-start !important;
+    font-weight: 600 !important;
+    padding: 14px var(--spacing-display) !important;
+    border-radius: 14px !important;
+    transition: transform 0.1s active;
+}
+
+.ql-group-info-add-btn {
+    padding: var(--spacing-lg) var(--spacing-xxxl) !important;
+    font-size: var(--font-size-md) !important;
+    border-radius: 20px !important;
+    gap: var(--spacing-lg) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.ql-group-modal__avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xxxl);
+    padding: 24px 0;
+}
+
+.ql-group-modal__avatar-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--ql-light-background-color);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border: 3px solid var(--ql-light-border-color);
+    transition: border-color 0.2s;
+}
+
+.ql-group-modal__avatar-preview:hover {
+    border-color: var(--ql-primary-color);
+}
+
+.ql-group-modal__avatar-placeholder {
+    font-size: 56px;
+    color: var(--ql-medium-gray-color);
+}
+
+.ql-group-modal__avatar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.ql-group-modal__avatar-overlay span {
+    color: #fff;
+    font-size: 28px;
+}
+
+.ql-group-modal__avatar-preview:hover .ql-group-modal__avatar-overlay {
+    opacity: 1;
+}
+
+.ql-group-confirm-modal {
+    text-align: center;
+    padding: 32px 24px;
+}
+
+.ql-group-confirm-icon {
+    color: var(--ql-warning-color);
+    margin-bottom: 20px;
+}
+
+.ql-group-confirm-icon span {
+    font-size: 56px;
+}
+
+.ql-group-confirm-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: var(--spacing-xxl);
+    color: var(--ql-primary-text-color);
+}
+
+.ql-group-confirm-desc {
+    font-size: var(--font-size-lg);
+    color: var(--ql-medium-gray-color);
+    line-height: 1.6;
+}
+
+.ql-drawer-footer-actions {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--spacing-display);
+}

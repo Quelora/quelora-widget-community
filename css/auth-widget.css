@@ -1,0 +1,219 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: css/auth-widget.css */
+/**
+ * QL – AUTH WIDGET
+ * Styles for the injectable authentication widget (AuthWidgetModule).
+ *
+ * Design contract:
+ * - All colours reference ql CSS variables so the widget adapts automatically
+ *   to both dark and light themes defined in variables.css.
+ * - No hard-coded colours, font stacks, or z-index values outside of the
+ *   documented overrides below.
+ * - Layout is self-contained: the widget uses `inline-flex` so it sits
+ *   naturally inside any flex/grid nav bar without affecting surrounding flow.
+ * - The ql-profile-dropup positioning is overridden via the --below modifier
+ *   for use in top navigation bars (opens downward instead of upward).
+ */
+
+/* ============================================================
+   ROOT
+   ============================================================ */
+
+.ql-auth-widget {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--ql-font-family-system);
+    font-size: var(--ql-aw-font-size, var(--font-size-md, 14px));
+    line-height: 1;
+    box-sizing: border-box;
+}
+
+.ql-auth-widget *,
+.ql-auth-widget *::before,
+.ql-auth-widget *::after {
+    box-sizing: inherit;
+}
+
+/* ============================================================
+   GUEST VIEW  (unauthenticated)
+   ============================================================ */
+
+.ql-auth-widget__guest {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ql-aw-gap, 8px);
+}
+
+/* Shared button base */
+.ql-auth-widget__btn-login,
+.ql-auth-widget__btn-signup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: var(--ql-aw-radius, 20px);
+    font-size: inherit;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+    border: 1px solid transparent;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+/* Login — outlined / ghost */
+.ql-auth-widget__btn-login {
+    border-color: var(--ql-border-color);
+}
+
+.ql-auth-widget__btn-login:hover {
+    background-color: var(--ql-dark-background-color);
+}
+
+.ql-auth-widget__btn-login:active {
+    opacity: 0.75;
+}
+
+/* Signup — filled / primary */
+.ql-auth-widget__btn-signup {
+    background-color: var(--ql-primary-color);
+    color: #fff;
+    border-color: var(--ql-primary-color);
+}
+
+.ql-auth-widget__btn-signup:hover {
+    filter: brightness(1.1);
+}
+
+.ql-auth-widget__btn-signup:active {
+    filter: brightness(0.9);
+}
+
+/* ============================================================
+   USER VIEW  (authenticated)
+   ============================================================ */
+
+.ql-auth-widget__user {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ql-aw-gap, 8px);
+    position: relative;
+    width: 36px;
+    height: 36px;
+}
+
+/* Avatar trigger button */
+.ql-auth-widget__avatar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--ql-aw-avatar-size, 36px);
+    height: var(--ql-aw-avatar-size, 36px);
+    border-radius: 50%;
+    border: 1px solid var(--ql-border-color);
+    background-color: var(--ql-dark-background-color);
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: opacity 0.18s ease;
+}
+
+.ql-auth-widget__avatar:hover {
+    opacity: 0.85;
+}
+
+.ql-auth-widget__avatar:active {
+    opacity: 0.65;
+}
+
+/* Avatar image layer (background-image variant) */
+.ql-auth-widget__avatar-img {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Avatar initials layer */
+.ql-auth-widget__avatar-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    font-size: calc(var(--ql-aw-avatar-size, 32px) * 0.38);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+    user-select: none;
+}
+
+/* Display name */
+.ql-auth-widget__name {
+    font-size: inherit;
+    font-weight: 500;
+    max-width: var(--ql-aw-name-max-width, 120px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+}
+
+/* ============================================================
+   DROPUP — BELOW MODIFIER
+   Overrides the default `bottom: 100%` positioning so the menu
+   opens downward, appropriate for top navigation bars.
+   ============================================================ */
+
+.ql-auth-widget__user .ql-profile-dropup,
+.ql-profile-dropup.ql-profile-dropup--below {
+    bottom: auto;
+    top: calc(100% + 6px);
+    left: 0;
+}
+
+/* ============================================================
+   ANIMATION  (matches the existing dropup visible transition)
+   ============================================================ */
+
+.ql-profile-dropup--below {
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    pointer-events: none;
+}
+
+.ql-profile-dropup--below.ql-profile-dropup--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* ============================================================
+   RESPONSIVE
+   Hide the display name on narrow viewports to save space
+   ============================================================ */
+
+@media (max-width: 480px) {
+    .ql-auth-widget__name {
+        display: none;
+    }
+    .ql-auth-widget__btn-login,
+    .ql-auth-widget__btn-signup {
+        padding: 6px 10px;
+    }
+}

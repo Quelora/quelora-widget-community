@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "ライブに接続中...",
+    "connectionEstablished": "接続確立！",
+    "liveChatUnavailable": "ライブチャットは一時的に利用できません。後でもう一度お試しください。",
+    "loginRequiredToSendLiveMessage": "ライブメッセージを送信するにはログインする必要があります。",
+    "liveNotStartedTitle": "ライブはまだ開始されていません",
+    "liveNotStartedModalMessage": "このライブセッションはまだ開始されていません。開始時に自動的に再接続します。",
+    "liveNowStarting": "ライブが今すぐ始まります...",
+    "confirmExistLiveSession": "閉じてもよろしいですか？終了するとライブセッションが停止し、リアルタイムのコメントが失われます。",
+    "subscribingToChannel": "ライブチャンネルを購読中...",
+    "liveConnectionErrorTitle": "ライブ接続エラー",
+    "liveChatFullTitle": "ライブチャットがいっぱいです",
+    "watchersActive": "視聴者がアクティブ",
+    "oneWatcherActive": "視聴者1人がアクティブ",
+    "isTyping": "が入力しています",
+    "areTyping": "が入力しています",
+    "liveWatchersConnected": "人が接続中"
+}

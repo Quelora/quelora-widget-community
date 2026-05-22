@@ -1,0 +1,47 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/icons.css */
+.ql-icons-outlined:not(:has(svg)) {
+    /* Oculta el texto "fallback" */
+    font-size: 0;
+    color: transparent;
+    text-indent: -9999px;
+    user-select: none;
+}
+
+.ql-svg-icon,
+.ql-icons-outlined {
+    display: inline-flex;
+    vertical-align: middle;
+    line-height: 1;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    font-size: 24px; 
+    width: 1em;
+    height: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+.ql-icons-outlined svg,
+.ql-svg-icon svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+}
+
+#ql-theme-root[data-theme="dark"] .ql-svg-icon svg {
+    fill: #DDD;
+}
+
+#ql-root .community-threads .like-icon.ql-icons-outlined {
+    font-size: 22px;
+}

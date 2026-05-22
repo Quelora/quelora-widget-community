@@ -1,0 +1,366 @@
+/*
+ * Quelora — quelora-widget-community
+ * Copyright (C) 2026 Germán Zelaya — https://quelora.org
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * This file is part of Quelora. See the LICENSE file for terms.
+ */
+
+/* filepath: quelora/css/session.css */
+#ql-root #QueloraSession {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+}
+#ql-root #QueloraSession .ql-modal-content {
+    background-color: var(--ql-bw-background-color, #ffffff);
+    padding: var(--spacing-display, 24px);
+    border-radius: 12px;
+    box-shadow: var(--avatar-shadow-1, 0 4px 12px rgba(0, 0, 0, 0.15));
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    position: relative;
+}
+#ql-root #QueloraSession .ql-close-button {
+    position: absolute;
+    top: var(--spacing-xl, 16px);
+    right: var(--spacing-xl, 16px);
+    background: none;
+    border: none;
+    font-size: var(--font-size-xl, 24px);
+    cursor: pointer;
+    color: var(--ql-medium-gray-color, #666666);
+}
+#ql-root #QueloraSession .ql-close-button:hover {
+    color: var(--ql-dark-gray-color, #333333);
+}
+#ql-root #QueloraSession .ql-title {
+    margin-bottom: var(--spacing-xxxl, 32px);
+    color: var(--ql-primary-text-color, #333333);
+    font-size: var(--font-size-xl, 20px);
+    font-weight: 600;
+}
+#ql-root #QueloraSession .ql-providers-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 12px);
+}
+#ql-root #QueloraSession .ql-register-link-container {
+    margin-top: var(--spacing-lg, 20px);
+    font-size: var(--font-size-sm, 12px);
+    color: var(--ql-medium-gray-color);
+}
+#ql-root #QueloraSession .ql-register-link-container a {
+    color: var(--ql-primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+#ql-root #QueloraSession .ql-register-link-container a:hover {
+    text-decoration: underline;
+}
+#ql-root #QueloraSession .ql-separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--ql-medium-gray-color);
+    font-size: var(--font-size-sm);
+    margin: var(--spacing-md) 0;
+}
+#ql-root #QueloraSession .ql-separator::before,
+#ql-root #QueloraSession .ql-separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--ql-light-border-color);
+}
+#ql-root #QueloraSession .ql-separator:not(:empty)::before {
+    margin-right: .25em;
+}
+#ql-root #QueloraSession .ql-separator:not(:empty)::after {
+    margin-left: .25em;
+}
+#ql-root #QueloraSession .ql-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+#ql-root #QueloraSession .ql-form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--ql-border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: var(--ql-background-color);
+    color: var(--ql-text-color);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+#ql-root #QueloraSession .ql-form-group input:focus {
+    outline: none;
+    border-color: var(--ql-primary-color);
+    box-shadow: 0 0 0 3px rgba(31, 168, 245, 0.2);
+}
+#ql-root #QueloraSession .ql-provider-button-submit {
+    position: relative;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: white;
+    background: var(--ql-primary-color);
+    transition: opacity 0.2s, transform 0.2s;
+}
+#ql-root #QueloraSession .ql-provider-button-submit:hover {
+    opacity: 0.9;
+}
+#ql-root #QueloraSession .ql-provider-button-submit.loading {
+    pointer-events: none;
+}
+#ql-root #QueloraSession .ql-provider-button-submit.loading span {
+    color: transparent;
+}
+#ql-root #QueloraSession .ql-provider-button-submit.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spinner 1s ease infinite;
+}
+#ql-root #QueloraSession .ql-login-error {
+    color: var(--ql-error-color, red);
+    font-size: var(--font-size-sm, 12px);
+    margin-top: var(--spacing-md, 12px);
+    text-align: center;
+}
+#ql-root #QueloraSession .ql-provider-button {
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: opacity 0.2s, transform 0.2s;
+}
+#ql-root #QueloraSession .ql-provider-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+#ql-root #QueloraSession .ql-provider-button button {
+    width: 90%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    color: white;
+}
+#ql-root #QueloraSession .ql-provider-button.google button {
+    background: #4285F4;
+}
+#ql-root #QueloraSession .ql-provider-button.facebook button {
+    background: #1877F2;
+}
+#ql-root #QueloraSession .ql-provider-button.apple button {
+    background: #000000;
+}
+#ql-root #QueloraSession .ql-provider-button.x button {
+    background: #000000;
+}
+
+/* Estilos específicos para el login en el Drawer de Ajustes */
+#ql-settings-login-container {
+    padding: var(--spacing-md) var(--spacing-xl);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#ql-settings-login-container .ql-providers-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+#ql-settings-login-container .ql-form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+/* Replicar estilo de inputs del modal */
+#ql-settings-login-container input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--ql-border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: var(--ql-background-color);
+    color: var(--ql-text-color);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box; /* Importante para que no se salga */
+}
+
+#ql-settings-login-container input:focus {
+    outline: none;
+    border-color: var(--ql-primary-color);
+    box-shadow: 0 0 0 3px rgba(31, 168, 245, 0.2);
+}
+
+/* Replicar botón principal (Quelora Login) */
+#ql-settings-login-container .ql-provider-button-submit {
+    position: relative;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: white;
+    background: var(--ql-primary-color);
+    transition: opacity 0.2s, transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ql-settings-login-container .ql-provider-button-submit:hover {
+    opacity: 0.9;
+}
+
+#ql-settings-login-container .ql-provider-button-submit.loading {
+    pointer-events: none;
+}
+
+#ql-settings-login-container .ql-provider-button-submit.loading span {
+    color: transparent;
+}
+
+#ql-settings-login-container .ql-provider-button-submit.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+    border: 3px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spinner 1s ease infinite;
+}
+
+/* Separador */
+#ql-settings-login-container .ql-separator {
+    margin: var(--spacing-lg) 0;
+    font-size: var(--font-size-sm);
+    color: var(--ql-medium-gray-color); /* Usar variable correcta */
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+#ql-settings-login-container .ql-separator::before,
+#ql-settings-login-container .ql-separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--ql-light-border-color);
+}
+
+#ql-settings-login-container .ql-separator::before {
+    margin-right: .25em;
+}
+
+#ql-settings-login-container .ql-separator::after {
+    margin-left: .25em;
+}
+
+/* Botones de Proveedores (Google, FB, etc) */
+#ql-settings-login-container .ql-provider-button {
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: opacity 0.2s, transform 0.2s;
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+}
+
+#ql-settings-login-container .ql-provider-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+#ql-settings-login-container .ql-provider-button button {
+    width: 100%; 
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+#ql-settings-login-container .ql-provider-button.google button { background: #4285F4; }
+#ql-settings-login-container .ql-provider-button.facebook button { background: #1877F2; }
+#ql-settings-login-container .ql-provider-button.apple button { background: #000000; }
+#ql-settings-login-container .ql-provider-button.x button { background: #000000; }
+
+/* Link de registro */
+#ql-settings-login-container .ql-register-link-container {
+    margin-top: var(--spacing-xl);
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--ql-medium-gray-color);
+}
+
+#ql-settings-login-container .ql-register-link-container a {
+    color: var(--ql-primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#ql-settings-login-container .ql-register-link-container a:hover {
+    text-decoration: underline;
+}
+
+/* Mensajes de error */
+#ql-settings-login-container .ql-login-error {
+    color: var(--ql-error-color, red);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-md);
+    text-align: center;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

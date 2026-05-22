@@ -1,0 +1,17 @@
+{
+  "name": "@quelora/widget-community",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build":           "npx rollup -c js/rollup.dir.config.js",
+    "release:patch":   "node scripts/release.mjs patch",
+    "release:minor":   "node scripts/release.mjs minor",
+    "release:major":   "node scripts/release.mjs major",
+    "release:dry":     "node scripts/release.mjs --dry-run",
+    "deploy:worker":   "cd .cloudflare && npx wrangler deploy"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0"
+  }
+}
