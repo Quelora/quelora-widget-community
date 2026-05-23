@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "מתחבר לשידור חי...",
+    "connectionEstablished": "החיבור נוצר!",
+    "liveChatUnavailable": "הצ'אט החי אינו זמין זמנית. אנא נסה שוב מאוחר יותר.",
+    "loginRequiredToSendLiveMessage": "עליך להיות מחובר כדי לשלוח הודעות חיות.",
+    "liveNotStartedTitle": "השידור החי עדיין לא התחיל",
+    "liveNotStartedModalMessage": "השידור החי הזה עדיין לא התחיל. נחבר אותך מחדש אוטומטית כשהוא יתחיל.",
+    "liveNowStarting": "השידור החי מתחיל עכשיו...",
+    "confirmExistLiveSession": "האם אתה בטוח שברצונך לסגור? יציאה תעצור את השידור החי ותאבד תגובות בזמן אמת.",
+    "subscribingToChannel": "מנוי לערוץ השידור החי...",
+    "liveConnectionErrorTitle": "שגיאת חיבור לשידור חי",
+    "liveChatFullTitle": "הצ'אט החי מלא",
+    "watchersActive": "צופים פעילים",
+    "oneWatcherActive": "צופה 1 פעיל",
+    "isTyping": "מקליד",
+    "areTyping": "מקלידים",
+    "liveWatchersConnected": "אנשים מחוברים"
+}

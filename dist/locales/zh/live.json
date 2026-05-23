@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "正在连接直播...",
+    "connectionEstablished": "连接已建立！",
+    "liveChatUnavailable": "直播聊天暂时不可用。请稍后重试。",
+    "loginRequiredToSendLiveMessage": "您必须登录才能发送直播消息。",
+    "liveNotStartedTitle": "直播尚未开始",
+    "liveNotStartedModalMessage": "此直播会话尚未开始。开始时我们会自动为您重新连接。",
+    "liveNowStarting": "直播现在开始...",
+    "confirmExistLiveSession": "您确定要关闭吗？退出将停止直播会话，并且您将丢失实时评论。",
+    "subscribingToChannel": "正在订阅直播频道...",
+    "liveConnectionErrorTitle": "直播连接错误",
+    "liveChatFullTitle": "直播聊天已满",
+    "watchersActive": "活跃观众",
+    "oneWatcherActive": "1位活跃观众",
+    "isTyping": "正在输入",
+    "areTyping": "正在输入",
+    "liveWatchersConnected": "人已连接"
+}

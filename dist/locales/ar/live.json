@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "جارٍ الاتصال بالبث المباشر...",
+    "connectionEstablished": "تم إنشاء الاتصال!",
+    "liveChatUnavailable": "الدردشة المباشرة غير متاحة مؤقتًا. يُرجى المحاولة مرة أخرى لاحقًا.",
+    "loginRequiredToSendLiveMessage": "يجب عليك تسجيل الدخول لإرسال رسائل مباشرة.",
+    "liveNotStartedTitle": "لم يبدأ البث المباشر بعد",
+    "liveNotStartedModalMessage": "لم تبدأ جلسة البث المباشر هذه بعد. سنقوم بإعادة توصيلك تلقائيًا عند بدايتها.",
+    "liveNowStarting": "البث المباشر يبدأ الآن...",
+    "confirmExistLiveSession": "هل أنت متأكد أنك تريد الإغلاق؟ سيؤدي الخروج إلى إيقاف جلسة البث المباشر وستفقد التعليقات في الوقت الفعلي.",
+    "subscribingToChannel": "جارٍ الاشتراك في قناة البث المباشر...",
+    "liveConnectionErrorTitle": "خطأ في اتصال البث المباشر",
+    "liveChatFullTitle": "الدردشة المباشرة ممتلئة",
+    "watchersActive": "مشاهد نشط",
+    "oneWatcherActive": "مشاهد نشط واحد",
+    "isTyping": "يكتب",
+    "areTyping": "يكتبون",
+    "liveWatchersConnected": "أشخاص متصلون"
+}

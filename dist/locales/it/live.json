@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "Connessione alla Live in corso...",
+    "connectionEstablished": "Connessione stabilita!",
+    "liveChatUnavailable": "La chat in diretta non è temporaneamente disponibile. Riprova più tardi.",
+    "loginRequiredToSendLiveMessage": "Devi effettuare l'accesso per inviare messaggi in diretta.",
+    "liveNotStartedTitle": "La Live non è ancora iniziata",
+    "liveNotStartedModalMessage": "Questa sessione live non è ancora iniziata. Ti riconnetteremo automaticamente quando inizierà.",
+    "liveNowStarting": "La Live sta per iniziare...",
+    "confirmExistLiveSession": "Sei sicuro di voler chiudere? Uscendo, la sessione live si interromperà e perderai i commenti in tempo reale.",
+    "subscribingToChannel": "Iscrizione al canale live in corso...",
+    "liveConnectionErrorTitle": "Errore di Connessione Live",
+    "liveChatFullTitle": "Chat Live Piena",
+    "watchersActive": "spettatori attivi",
+    "oneWatcherActive": "1 spettatore attivo",
+    "isTyping": "sta scrivendo",
+    "areTyping": "stanno scrivendo",
+    "liveWatchersConnected": "persone connesse"
+}

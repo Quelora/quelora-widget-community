@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "Подключение к прямому эфиру...",
+    "connectionEstablished": "Соединение установлено!",
+    "liveChatUnavailable": "Прямой чат временно недоступен. Повторите попытку позже.",
+    "loginRequiredToSendLiveMessage": "Вы должны войти в систему, чтобы отправлять сообщения в прямом эфире.",
+    "liveNotStartedTitle": "Прямой эфир еще не начался",
+    "liveNotStartedModalMessage": "Этот прямой эфир еще не начался. Мы автоматически подключим вас, когда он начнется.",
+    "liveNowStarting": "Прямой эфир начинается сейчас...",
+    "confirmExistLiveSession": "Вы уверены, что хотите закрыть? Выход остановит сессию прямого эфира, и вы потеряете комментарии в реальном времени.",
+    "subscribingToChannel": "Подписка на канал прямого эфира...",
+    "liveConnectionErrorTitle": "Ошибка подключения к прямому эфиру",
+    "liveChatFullTitle": "Прямой чат заполнен",
+    "watchersActive": "активных зрителей",
+    "oneWatcherActive": "1 активный зритель",
+    "isTyping": "печатает",
+    "areTyping": "печатают",
+    "liveWatchersConnected": "человек подключено"
+}

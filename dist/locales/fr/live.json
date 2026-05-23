@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "Connexion au Direct en cours...",
+    "connectionEstablished": "Connexion établie !",
+    "liveChatUnavailable": "Le chat en direct est temporairement indisponible. Veuillez réessayer plus tard.",
+    "loginRequiredToSendLiveMessage": "Vous devez être connecté pour envoyer des messages en direct.",
+    "liveNotStartedTitle": "Le Direct n'a pas encore commencé",
+    "liveNotStartedModalMessage": "Cette session en direct n'a pas encore commencé. Nous vous reconnecterons automatiquement dès qu'elle débutera.",
+    "liveNowStarting": "Le Direct commence maintenant...",
+    "confirmExistLiveSession": "Êtes-vous sûr de vouloir fermer ? Quitter arrêtera la session en direct et vous perdrez les commentaires en temps réel.",
+    "subscribingToChannel": "Abonnement à la chaîne en direct...",
+    "liveConnectionErrorTitle": "Erreur de connexion au Direct",
+    "liveChatFullTitle": "Chat en direct complet",
+    "watchersActive": "spectateurs actifs",
+    "oneWatcherActive": "1 spectateur actif",
+    "isTyping": "est en train d'écrire",
+    "areTyping": "sont en train d'écrire",
+    "liveWatchersConnected": "personnes connectées"
+}

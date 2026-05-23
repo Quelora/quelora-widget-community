@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "Connecting to Live...",
+    "connectionEstablished": "Connection established!",
+    "liveChatUnavailable": "Live chat is temporarily unavailable. Please try again later.",
+    "loginRequiredToSendLiveMessage": "You must be logged in to send live messages.",
+    "liveNotStartedTitle": "Live Not Started Yet",
+    "liveNotStartedModalMessage": "This live session hasn't started yet. We'll automatically reconnect you when it begins.",
+    "liveNowStarting": "Live is starting now...",
+    "confirmExistLiveSession": "Are you sure you want to close? Exiting will stop the live session and you will lose real-time comments.",
+    "subscribingToChannel": "Subscribing to the live channel...",
+    "liveConnectionErrorTitle": "Live Connection Error",
+    "liveChatFullTitle": "Live Chat Full",
+    "watchersActive": "watchers active",
+    "oneWatcherActive": "1 watcher active",
+    "isTyping": "is typing",
+    "areTyping": "are typing",
+    "liveWatchersConnected": "people connected"
+}

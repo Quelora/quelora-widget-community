@@ -1,0 +1,18 @@
+{
+    "connectingToLive": "लाइव से कनेक्ट किया जा रहा है...",
+    "connectionEstablished": "कनेक्शन स्थापित हो गया!",
+    "liveChatUnavailable": "लाइव चैट अस्थायी रूप से अनुपलब्ध है। कृपया बाद में पुन: प्रयास करें।",
+    "loginRequiredToSendLiveMessage": "लाइव संदेश भेजने के लिए आपको लॉग इन करना होगा।",
+    "liveNotStartedTitle": "लाइव अभी शुरू नहीं हुआ है",
+    "liveNotStartedModalMessage": "यह लाइव सत्र अभी शुरू नहीं हुआ है। जब यह शुरू होगा तो हम आपको स्वचालित रूप से पुनः कनेक्ट कर देंगे।",
+    "liveNowStarting": "लाइव अब शुरू हो रहा है...",
+    "confirmExistLiveSession": "क्या आप वाकई बंद करना चाहते हैं? बाहर निकलने से लाइव सत्र रुक जाएगा और आप वास्तविक समय की टिप्पणियाँ खो देंगे।",
+    "subscribingToChannel": "लाइव चैनल की सदस्यता ली जा रही है...",
+    "liveConnectionErrorTitle": "लाइव कनेक्शन त्रुटि",
+    "liveChatFullTitle": "लाइव चैट पूर्ण है",
+    "watchersActive": "दर्शक सक्रिय",
+    "oneWatcherActive": "1 दर्शक सक्रिय",
+    "isTyping": "लिख रहा है",
+    "areTyping": "लिख रहे हैं",
+    "liveWatchersConnected": "लोग कनेक्टेड हैं"
+}
